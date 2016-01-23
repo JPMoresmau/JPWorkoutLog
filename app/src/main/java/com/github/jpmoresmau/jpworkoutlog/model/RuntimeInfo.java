@@ -31,6 +31,10 @@ public class RuntimeInfo {
 
     private Map<String,Exercise> exercisesByName=new HashMap<>();
 
+    private HashMap<String,SetInfo<Double>> exercisesLatest=new HashMap<>();
+
+    private String lastExercise="";
+
     public RuntimeInfo(Context ctx, Date d) {
         this.ctx=ctx;
         this.dataHelper = new DataHelper(ctx);
@@ -40,6 +44,20 @@ public class RuntimeInfo {
             exercises.add(s.getExercise());
             double uw=SettingsActivity.getWeigthInUserUnits(ctx,s.getWeight());
             totalWeight+=uw*s.getReps();
+        }
+
+        Map<Long,String> exById=new HashMap<>();
+        for (Exercise ex:dataHelper.listExercises()){
+            exById.put(ex.getId(),ex.getName());
+        }
+
+        Map<Long,SetInfo<Long>> m=dataHelper.getLatestInfoByExercise();
+        for (Long l:m.keySet()){
+           String n=exById.get(l);
+            if (n!=null){
+                SetInfo<Long> si1=m.get(l);
+                exercisesLatest.put(n,new SetInfo<Double>(si1.getReps(),SettingsActivity.getWeigthInUserUnits(ctx, si1.getWeight())));
+            }
         }
     }
 
@@ -72,7 +90,9 @@ public class RuntimeInfo {
         if (s.getId()>-1){
             sets.add(s);
             exercises.add(ex);
+            lastExercise=ex.getName();
             totalWeight+=weight*reps;
+            exercisesLatest.put(ex.getName(),new SetInfo(reps,weight));
         }
     }
 
@@ -90,5 +110,14 @@ public class RuntimeInfo {
     public String[] listPossibleExerciseNames(){
         checkExercisesNames();
         return exercisesByName.keySet().toArray(new String[exercisesByName.size()]);
+    }
+
+
+    public HashMap<String, SetInfo<Double>> getExercisesLatest() {
+        return exercisesLatest;
+    }
+
+    public String getLastExercise() {
+        return lastExercise;
     }
 }

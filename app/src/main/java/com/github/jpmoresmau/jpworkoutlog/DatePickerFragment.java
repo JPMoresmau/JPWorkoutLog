@@ -48,6 +48,11 @@ public class DatePickerFragment extends DialogFragment
         c.set(Calendar.YEAR,dp.getYear());
         c.set(Calendar.MONTH,dp.getMonth());
         c.set(Calendar.DAY_OF_MONTH, dp.getDayOfMonth());
+        // one workout per day
+        c.set(Calendar.HOUR,0);
+        c.set(Calendar.MINUTE,0);
+        c.set(Calendar.SECOND,0);
+        c.set(Calendar.MILLISECOND,0);
         intent.putExtra(WorkoutActivity.WORKOUT_DATE, c.getTime().getTime());
         getActivity().startActivity(intent);
     }

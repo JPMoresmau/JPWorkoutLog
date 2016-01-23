@@ -22,6 +22,7 @@
 
     <string name="cancel">Cancel</string>
     <string name="set_done">Set done!</string>
+    <string name="clear">Clear</string>
 
     <string name="workout_date">Workout date?</string>
     <string name="title_activity_date">Workout Date</string>
@@ -48,6 +49,9 @@
         <item>Lat Pulldown</item>
         <item>Face Pull</item>
         <item>Pull-up</item>
+        <item>Wide Pull-up</item>
+        <item>Biceps Curl</item>
+        <item>Curl-up</item>
         <item>Press-up</item>
         <item>Crunch</item>
         <item>Leg Curl</item>
@@ -55,6 +59,9 @@
         <item>Leg Press</item>
         <item>Calf raise</item>
         <item>Chest Press</item>
+        <item>Dips</item>
+        <item>Triceps Extension</item>
+        <item>Skull Crusher</item>
     </string-array>
 
     <string name="error_reps">Reps should be a round number; bigger than 0!</string>

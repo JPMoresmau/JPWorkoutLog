@@ -7,12 +7,14 @@ import android.test.RenamingDelegatingContext;
 import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
 import com.github.jpmoresmau.jpworkoutlog.model.ExSet;
 import com.github.jpmoresmau.jpworkoutlog.model.Exercise;
+import com.github.jpmoresmau.jpworkoutlog.model.SetInfo;
 import com.github.jpmoresmau.jpworkoutlog.model.Workout;
 
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jpmoresmau on 1/18/16.
@@ -140,7 +142,7 @@ public class DBTest extends AndroidTestCase {
         assertEquals(ex1, s1.getExercise());
         assertEquals(10, s1.getReps());
         assertEquals(5, s1.getWeight());
-        assertTrue(s1.getId()>-1);
+        assertTrue(s1.getId() > -1);
 
         exs1=dataHelper.listSets(w1);
         assertNotNull(exs1);
@@ -169,6 +171,50 @@ public class DBTest extends AndroidTestCase {
         exs2=dataHelper.listSets(w2);
         assertNotNull(exs2);
         assertTrue(exs2.isEmpty());
+
+    }
+
+    @Test
+    public void testLatest(){
+        Exercise ex1=dataHelper.addExercise("ex1");
+        Exercise ex2=dataHelper.addExercise("ex2");
+        Date d1=new Date(System.currentTimeMillis());
+        Workout w1=dataHelper.addWorkout(d1);
+
+        Map<Long,SetInfo<Long>> m=dataHelper.getLatestInfoByExercise();
+        assertNotNull(m);
+        assertTrue(m.isEmpty());
+
+        ExSet s1=dataHelper.addSet(w1, ex1, 10, 5);
+        m=dataHelper.getLatestInfoByExercise();
+        assertNotNull(m);
+        assertEquals(1, m.size());
+        SetInfo<Long> si=m.get(ex1.getId());
+        assertNotNull(si);
+        assertEquals(10, si.getReps());
+        assertEquals(5, si.getWeight().longValue());
+
+        ExSet s2=dataHelper.addSet(w1, ex1, 11, 6);
+        m=dataHelper.getLatestInfoByExercise();
+        assertNotNull(m);
+        assertEquals(1, m.size());
+        si=m.get(ex1.getId());
+        assertNotNull(si);
+        assertEquals(11, si.getReps());
+        assertEquals(6,si.getWeight().longValue());
+
+        ExSet s3=dataHelper.addSet(w1, ex2, 4, 3);
+        m=dataHelper.getLatestInfoByExercise();
+        assertNotNull(m);
+        assertEquals(2, m.size());
+        si=m.get(ex1.getId());
+        assertNotNull(si);
+        assertEquals(11, si.getReps());
+        assertEquals(6,si.getWeight().longValue());
+        si=m.get(ex2.getId());
+        assertNotNull(si);
+        assertEquals(4, si.getReps());
+        assertEquals(3,si.getWeight().longValue());
 
     }
 

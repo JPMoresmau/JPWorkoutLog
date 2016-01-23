@@ -5,14 +5,16 @@
 
     <AutoCompleteTextView
         android:id="@+id/set_exercise"
-        android:inputType="text|textCapWords|textAutoCorrect"
+        android:inputType="text|textCapWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/exercise" />
+        android:hint="@string/exercise"
+        android:focusable="true"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/set_reps"
@@ -24,7 +26,9 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:hint="@string/reps"
-        android:digits="0123456789"/>
+        android:digits="0123456789"
+        android:focusable="true"
+        android:imeOptions="actionNext"/>
 
 
     <EditText
@@ -37,5 +41,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:hint="@string/weight"
-        android:digits="0123456789,."/>
+        android:digits="0123456789,."
+        android:focusable="true"
+        android:imeOptions="actionDone"/>
 </LinearLayout>

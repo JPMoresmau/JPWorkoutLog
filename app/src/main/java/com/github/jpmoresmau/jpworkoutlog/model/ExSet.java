@@ -7,15 +7,13 @@ public class ExSet {
     private long id;
     private Workout workout;
     private Exercise exercise;
-    private int reps;
-    private long weight;
+    private SetInfo<Long> setInfo;
 
     public ExSet(long id, Workout workout, Exercise exercise, int reps, long weight) {
         this.id = id;
         this.workout = workout;
         this.exercise = exercise;
-        this.reps = reps;
-        this.weight = weight;
+        this.setInfo = new SetInfo<>(reps,weight);
     }
 
     public long getId() {
@@ -31,11 +29,11 @@ public class ExSet {
     }
 
     public int getReps() {
-        return reps;
+        return setInfo.getReps();
     }
 
     public long getWeight() {
-        return weight;
+        return setInfo.getWeight();
     }
 
     @Override
@@ -60,8 +58,8 @@ public class ExSet {
                 "id=" + id +
                 ", workout=" + workout +
                 ", exercise=" + exercise +
-                ", reps=" + reps +
-                ", weight=" + weight +
+                ", reps=" + setInfo.getReps() +
+                ", weight=" + setInfo.getWeight() +
                 '}';
     }
 }

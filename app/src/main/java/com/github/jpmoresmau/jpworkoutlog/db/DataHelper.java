@@ -10,11 +10,14 @@ import android.provider.ContactsContract;
 
 import com.github.jpmoresmau.jpworkoutlog.model.ExSet;
 import com.github.jpmoresmau.jpworkoutlog.model.Exercise;
+import com.github.jpmoresmau.jpworkoutlog.model.SetInfo;
 import com.github.jpmoresmau.jpworkoutlog.model.Workout;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jpmoresmau on 1/18/16.
@@ -32,6 +35,7 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL(DataContract.WorkoutEntry.CREATE_TABLE);
         db.execSQL(DataContract.SetEntry.CREATE_TABLE);
         db.execSQL(DataContract.SetEntry.CREATE_INDEX_WORKOUT);
+        db.execSQL(DataContract.ExerciseLatestEntry.CREATE_TABLE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -121,7 +125,7 @@ public class DataHelper extends SQLiteOpenHelper {
         ContentValues vals=new ContentValues();
         vals.put(DataContract.ExerciseEntry.COLUMN_NAME,name);
         long newID=db.insert(DataContract.ExerciseEntry.TABLE_NAME, null, vals);
-        if (newID==-1){
+        if (newID==-1) {
             return getExercise(name);
         }
         return new Exercise(newID,name);
@@ -207,7 +211,7 @@ public class DataHelper extends SQLiteOpenHelper {
         try {
             List<ExSet> l = new ArrayList<>();
             while (c.moveToNext()) {
-                l.add(new ExSet(c.getLong(0), w, getExercise(c.getLong(1)), c.getInt(2), c.getInt(3)));
+                l.add(new ExSet(c.getLong(0), w, getExercise(c.getLong(1)), c.getInt(2), c.getLong(3)));
             }
             return l;
 
@@ -225,7 +229,41 @@ public class DataHelper extends SQLiteOpenHelper {
         vals.put(DataContract.SetEntry.COLUMN_REPS,reps);
         vals.put(DataContract.SetEntry.COLUMN_WEIGHT,weight);
         long newID=db.insert(DataContract.SetEntry.TABLE_NAME, null, vals);
+
+        vals=new ContentValues();
+        vals.put(DataContract.ExerciseLatestEntry.COLUMN_REPS,reps);
+        vals.put(DataContract.ExerciseLatestEntry.COLUMN_WEIGHT, weight);
+        int aff=db.update(DataContract.ExerciseLatestEntry.TABLE_NAME, vals, DataContract.ExerciseLatestEntry.COLUMN_EXERCISE + "=?", new String[]{String.valueOf(e.getId())});
+        if (aff==0){
+            vals.put(DataContract.ExerciseLatestEntry.COLUMN_EXERCISE,e.getId());
+            db.insert(DataContract.ExerciseLatestEntry.TABLE_NAME,null,vals);
+        }
+
         return new ExSet(newID,w,e,reps,weight);
 
+    }
+
+    public Map<Long,SetInfo<Long>> getLatestInfoByExercise(){
+        SQLiteDatabase db=getReadableDatabase();
+        String[] proj=new String[]{
+                DataContract.ExerciseLatestEntry.COLUMN_EXERCISE, DataContract.ExerciseLatestEntry.COLUMN_REPS,DataContract.ExerciseLatestEntry.COLUMN_WEIGHT};
+        Cursor c=db.query(DataContract.ExerciseLatestEntry.TABLE_NAME,
+                proj,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        try {
+            Map<Long,SetInfo<Long>> m = new HashMap<>();
+            while (c.moveToNext()) {
+                m.put(c.getLong(0),new SetInfo<>(c.getInt(1), c.getLong(2)));
+            }
+            return m;
+
+        } finally {
+            c.close();
+        }
     }
 }

@@ -58,5 +58,18 @@ public final class DataContract {
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
 
+    public static abstract class ExerciseLatestEntry implements BaseColumns {
+        public static String TABLE_NAME="latest";
+        public static String COLUMN_EXERCISE="exercise";
+        public static String COLUMN_REPS="reps";
+        public static String COLUMN_WEIGHT="weight";
 
+        public static String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+ "("+
+                COLUMN_EXERCISE+" INTEGER NOT NULL UNIQUE, "+
+                COLUMN_REPS+" INTEGER NOT NULL, "+
+                COLUMN_WEIGHT+" INTEGER NOT NULL)";
+
+        public static final String DROP_TABLE =
+                "DROP TABLE IF EXISTS " + TABLE_NAME;
+    }
 }

@@ -65,8 +65,10 @@ public class WorkoutActivity extends FragmentActivity implements AddSetExerciseF
     public void onNewSet(View view){
         DialogFragment newFragment = new AddSetExerciseFragment();
         Bundle b=new Bundle();
-        b.putStringArray(AddSetExerciseFragment.EXERCISES,runtimeInfo.listPossibleExerciseNames());
-        newFragment.setArguments(b);
+        b.putStringArray(AddSetExerciseFragment.EXERCISES, runtimeInfo.listPossibleExerciseNames());
+        b.putString(AddSetExerciseFragment.LAST_EXERCISE, runtimeInfo.getLastExercise());
+        b.putSerializable(AddSetExerciseFragment.LAST_EXERCISES,runtimeInfo.getExercisesLatest());
+         newFragment.setArguments(b);
         newFragment.show(getFragmentManager(), "addset");
     }
 
