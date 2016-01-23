@@ -1,0 +1,83 @@
+package com.github.jpmoresmau.jpworkoutlog;
+
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.github.jpmoresmau.jpworkoutlog.model.RuntimeInfo;
+
+import java.util.Date;
+
+public class WorkoutActivity extends FragmentActivity implements AddSetExerciseFragment.NewSetListener{
+    public static final String WORKOUT_DATE = "WORKOUT_DATE";
+
+    private TextView summaryText;
+    private RuntimeInfo runtimeInfo;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_workout);
+        setupActionBar();
+
+        long d=getIntent().getLongExtra(WORKOUT_DATE,System.currentTimeMillis());
+        runtimeInfo=new RuntimeInfo(this,new Date(d));
+
+        summaryText=(TextView)findViewById(R.id.summaryText);
+        setSummary();
+    }
+
+    private void setSummary(){
+       if (runtimeInfo!=null){
+           summaryText.setText(runtimeInfo.getSummary());
+       }
+
+    }
+
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    private void setupActionBar() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    public void onDone(View view){
+        Intent intent=new Intent(this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    public void onNewSet(View view){
+        DialogFragment newFragment = new AddSetExerciseFragment();
+        Bundle b=new Bundle();
+        b.putStringArray(AddSetExerciseFragment.EXERCISES,runtimeInfo.listPossibleExerciseNames());
+        newFragment.setArguments(b);
+        newFragment.show(getFragmentManager(), "addset");
+    }
+
+    @Override
+    public void newSet(String ex, int reps, double weight) {
+        runtimeInfo.addSet(ex, reps, weight);
+        setSummary();
+        String s=getResources().getString(R.string.set_added);
+        String notif= String.format(s, ex);
+        Toast toast = Toast.makeText(this, notif, Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
+}
