@@ -10,12 +10,16 @@ import android.provider.ContactsContract;
 
 import com.github.jpmoresmau.jpworkoutlog.model.ExSet;
 import com.github.jpmoresmau.jpworkoutlog.model.Exercise;
+import com.github.jpmoresmau.jpworkoutlog.model.ExerciseStat;
+import com.github.jpmoresmau.jpworkoutlog.model.GlobalStats;
 import com.github.jpmoresmau.jpworkoutlog.model.SetInfo;
 import com.github.jpmoresmau.jpworkoutlog.model.Workout;
+import com.github.jpmoresmau.jpworkoutlog.model.WorkoutStat;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -265,5 +269,84 @@ public class DataHelper extends SQLiteOpenHelper {
         } finally {
             c.close();
         }
+    }
+
+    public GlobalStats getGlobalStats(){
+        SQLiteDatabase db=getReadableDatabase();
+
+        Cursor c=db.query(DataContract.WorkoutEntry.TABLE_NAME,
+                new String[]{"min("+DataContract.WorkoutEntry.COLUMN_DATE+")","max("+DataContract.WorkoutEntry.COLUMN_DATE+")","count(*)"},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        try {
+            if (c.moveToFirst()){
+                return new GlobalStats(new Date(c.getLong(0)),new Date(c.getLong(1)),c.getInt(2));
+            }
+        } finally {
+            c.close();
+        }
+        return new GlobalStats(null,null,0);
+    }
+
+    public List<WorkoutStat<Long>> getWorkoutStats(){
+        SQLiteDatabase db=getReadableDatabase();
+        String s="select w."+DataContract.WorkoutEntry.COLUMN_DATE+","+
+                "count(DISTINCT s."+DataContract.SetEntry.COLUMN_EXERCISE+"),"+
+                "count(s."+DataContract.SetEntry._ID+"),"+
+                "sum(s. "+DataContract.SetEntry.COLUMN_REPS+"),"+
+                "sum(s."+DataContract.SetEntry.COLUMN_WEIGHT+")"+
+                " from "+DataContract.WorkoutEntry.TABLE_NAME+" w LEFT OUTER JOIN  "
+                + DataContract.SetEntry.TABLE_NAME + " s on w."+DataContract.WorkoutEntry._ID+" = s."+DataContract.SetEntry.COLUMN_WORKOUT
+                + " GROUP BY w."+DataContract.WorkoutEntry.COLUMN_DATE
+                + " ORDER BY w."+DataContract.WorkoutEntry.COLUMN_DATE;
+
+        Cursor c=db.rawQuery(s, null);
+        try {
+            List<WorkoutStat<Long>> ls=new LinkedList<>();
+            while (c.moveToNext()){
+                Date d=new Date(c.getLong(0));
+                int exCount=c.getInt(1);
+                int setCount=c.getInt(2);
+                int repCount=c.getInt(3);
+                long weight=c.getLong(4);
+                ls.add(new WorkoutStat<Long>(d,exCount,setCount,repCount,weight));
+            }
+            return ls;
+        } finally {
+            c.close();
+        }
+    }
+
+    public List<ExerciseStat<Long>> getExerciseStats(long exerciseID){
+        SQLiteDatabase db=getReadableDatabase();
+        String s="select w."+DataContract.WorkoutEntry.COLUMN_DATE+","+
+                "count(s."+DataContract.SetEntry._ID+"),"+
+                "sum(s. "+DataContract.SetEntry.COLUMN_REPS+"),"+
+                "sum(s."+DataContract.SetEntry.COLUMN_WEIGHT+")"+
+                " from "+DataContract.WorkoutEntry.TABLE_NAME+" w LEFT OUTER JOIN  "
+                + DataContract.SetEntry.TABLE_NAME + " s on w."+DataContract.WorkoutEntry._ID+" = s."+DataContract.SetEntry.COLUMN_WORKOUT
+                + " WHERE "+DataContract.SetEntry.COLUMN_EXERCISE+" = ?"
+                + " GROUP BY w."+DataContract.WorkoutEntry.COLUMN_DATE
+                + " ORDER BY w."+DataContract.WorkoutEntry.COLUMN_DATE;
+
+        Cursor c=db.rawQuery(s, new String[]{String.valueOf(exerciseID)});
+        try {
+            List<ExerciseStat<Long>> ls=new LinkedList<>();
+            while (c.moveToNext()){
+                Date d=new Date(c.getLong(0));
+                int setCount=c.getInt(1);
+                int repCount=c.getInt(2);
+                long weight=c.getLong(3);
+                ls.add(new ExerciseStat<Long>(d,setCount,repCount,weight));
+            }
+            return ls;
+        } finally {
+            c.close();
+        }
+
     }
 }

@@ -47,4 +47,8 @@ public class MainActivity extends Activity {
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
+    public void openStats(View v){
+        Intent intent=new Intent(this,StatsActivity.class);
+        startActivity(intent);
+    }
 }

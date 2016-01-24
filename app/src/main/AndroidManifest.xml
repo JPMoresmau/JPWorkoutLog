@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.jpmoresmau.jpworkoutlog"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.github.jpmoresmau.jpworkoutlog">
 
     <application
         android:allowBackup="true"
@@ -35,7 +34,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.jpmoresmau.jpworkoutlog.MainActivity" />
         </activity>
+        <activity
+            android:name=".StatsActivity"
+            android:label="@string/title_activity_stats"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.jpmoresmau.jpworkoutlog.MainActivity" />
+        </activity>
     </application>
-
 
 </manifest>

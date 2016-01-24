@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -78,8 +79,6 @@ public class AddSetExerciseFragment extends DialogFragment {
         }
 
 
-
-
         exText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -127,12 +126,25 @@ public class AddSetExerciseFragment extends DialogFragment {
                 })
                 .setNeutralButton(R.string.clear, null)
         ;
+
+
+
         final AlertDialog d=builder.create();
+
+        exText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
+            }
+        });
+
         d.setOnShowListener(new DialogInterface.OnShowListener() {
 
             @Override
             public void onShow(DialogInterface dialog) {
-
+                exText.requestFocus();
                 Button b = d.getButton(AlertDialog.BUTTON_NEUTRAL);
                 b.setOnClickListener(new View.OnClickListener() {
 
@@ -146,6 +158,8 @@ public class AddSetExerciseFragment extends DialogFragment {
                 });
             }
         });
+
+
 
         return d;
 

@@ -68,7 +68,7 @@ public class WorkoutActivity extends FragmentActivity implements AddSetExerciseF
         b.putStringArray(AddSetExerciseFragment.EXERCISES, runtimeInfo.listPossibleExerciseNames());
         b.putString(AddSetExerciseFragment.LAST_EXERCISE, runtimeInfo.getLastExercise());
         b.putSerializable(AddSetExerciseFragment.LAST_EXERCISES,runtimeInfo.getExercisesLatest());
-         newFragment.setArguments(b);
+        newFragment.setArguments(b);
         newFragment.show(getFragmentManager(), "addset");
     }
 
