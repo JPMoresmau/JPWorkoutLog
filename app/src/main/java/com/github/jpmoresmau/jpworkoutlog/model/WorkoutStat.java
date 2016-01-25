@@ -3,6 +3,7 @@ package com.github.jpmoresmau.jpworkoutlog.model;
 import java.util.Date;
 
 /**
+ * Statistics for one workout (aggregate all set information)
  * Created by jpmoresmau on 1/24/16.
  */
 public class WorkoutStat<T> {
@@ -11,7 +12,6 @@ public class WorkoutStat<T> {
     private int setCount;
     private int repCount;
     private T totalWeight;
-
 
 
     public WorkoutStat(Date workoutDate, int exerciseCount, int setCount, int repCount,T totalWeight) {

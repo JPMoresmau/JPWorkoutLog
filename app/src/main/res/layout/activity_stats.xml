@@ -14,4 +14,30 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/stats_global_avg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workout_stats"
+        android:id="@+id/stats_workout"
+        android:onClick="onWorkoutStats"
+        android:visibility="invisible"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_stats"
+        android:id="@+id/stats_exercise"
+        android:onClick="onExerciseStats"
+        android:visibility="invisible"/>
 </LinearLayout>

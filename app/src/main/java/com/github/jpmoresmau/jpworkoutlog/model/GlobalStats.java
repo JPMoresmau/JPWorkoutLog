@@ -1,6 +1,7 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by jpmoresmau on 1/24/16.
@@ -28,5 +29,11 @@ public class GlobalStats {
         return workoutCount;
     }
 
-
+    public double getAverage(){
+        int nb=getWorkoutCount();
+        Date st=getFirstWorkoutDate();
+        long diff=System.currentTimeMillis()-st.getTime();
+        long d= TimeUnit.MILLISECONDS.toDays(diff);
+        return ((double)nb)/((double)d/7);
+    }
 }

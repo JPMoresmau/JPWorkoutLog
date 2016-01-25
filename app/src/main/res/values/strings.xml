@@ -67,7 +67,14 @@
     <string name="error_reps">Reps should be a round number; bigger than 0!</string>
     <string name="error_weight">Weight should be a number!</string>
 
+    <string name="title_activity_stats">Stats</string>
+
     <string name="global_stats_last">Last workout: %1$s</string>
     <string name="global_stats_none">No workout done! Get going!</string>
-    <string name="title_activity_stats">Stats</string>
+    <string name="global_stats_avg">%1$d workout(s) since %2$s (%3$.1g workouts/week)</string>
+
+    <string name="workout_stats">Workout stats</string>
+
+    <string name="exercise_stats">Exercise stats</string>
+
 </resources>
