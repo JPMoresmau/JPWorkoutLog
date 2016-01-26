@@ -1,0 +1,91 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.github.jpmoresmau.jpworkoutlog.WorkoutStatFragment">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView android:text="@string/stat"
+            android:padding="3dip"/>
+        <TextView android:text="@string/min"
+            android:padding="3dip"
+            android:gravity="center"/>
+        <TextView android:text="@string/max"
+            android:padding="3dip"
+            android:gravity="right"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView android:text="@string/exercises"
+            android:padding="3dip"/>
+        <TextView android:id="@+id/exercises_min"
+            android:padding="3dip"
+            android:gravity="right"/>
+        <TextView android:id="@+id/exercises_max"
+            android:padding="3dip"
+            android:gravity="right"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView android:text="@string/sets"
+            android:padding="3dip"/>
+        <TextView android:id="@+id/sets_min"
+            android:padding="3dip"
+            android:gravity="right"/>
+        <TextView android:id="@+id/sets_max"
+            android:padding="3dip"
+            android:gravity="right"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView android:text="@string/reps"
+            android:padding="3dip"/>
+        <TextView android:id="@+id/reps_min"
+            android:padding="3dip"
+            android:gravity="right"/>
+        <TextView android:id="@+id/reps_max"
+            android:padding="3dip"
+            android:gravity="right"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView android:text="@string/weight"
+            android:padding="3dip"/>
+        <TextView android:id="@+id/weight_min"
+            android:padding="3dip"
+            android:gravity="right"/>
+        <TextView android:id="@+id/weight_max"
+            android:padding="3dip"
+            android:gravity="right"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_save"
+            android:id="@+id/workout_file_save"
+            android:onClick="onWorkoutFileSave"/>
+    </TableRow>
+</TableLayout>

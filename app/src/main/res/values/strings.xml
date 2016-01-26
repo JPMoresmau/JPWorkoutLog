@@ -77,4 +77,15 @@
 
     <string name="exercise_stats">Exercise stats</string>
 
+    <string name="stat">Statistic</string>
+    <string name="min">Minimum</string>
+    <string name="max">Maximum</string>
+    <string name="exercises">Exercises</string>
+    <string name="sets">Sets</string>
+    <string name="date">Date</string>
+
+    <string name="file_save">Save to file</string>
+    <string name="file_saved">Saved to file %1$s</string>
+
+
 </resources>

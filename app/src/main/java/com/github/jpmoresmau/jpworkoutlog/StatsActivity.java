@@ -3,6 +3,7 @@ package com.github.jpmoresmau.jpworkoutlog;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +14,11 @@ import com.github.jpmoresmau.jpworkoutlog.model.StatsHelper;
 /**
  * Activity showing statistics
  */
-public class StatsActivity extends Activity {
+public class StatsActivity extends FragmentActivity {
     private StatsHelper statsHelper;
+
+    private WorkoutStatFragment workoutFragment=null;
+    private ExerciseStatFragment exerciseFragment=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +57,40 @@ public class StatsActivity extends Activity {
     }
 
     public void onWorkoutStats(View v){
+        if (workoutFragment==null) {
+            workoutFragment = new WorkoutStatFragment();
+            workoutFragment.setArguments(getIntent().getExtras());
 
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.workoutContainer, workoutFragment).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().remove(workoutFragment).commit();
+            workoutFragment=null;
+        }
     }
 
     public void onExerciseStats(View v){
+        if (exerciseFragment==null) {
+            exerciseFragment = new ExerciseStatFragment();
+            exerciseFragment.setArguments(getIntent().getExtras());
 
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.exerciseContainer, exerciseFragment).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().remove(exerciseFragment).commit();
+            exerciseFragment=null;
+        }
+    }
+
+    public void onWorkoutFileSave(View v){
+        if (workoutFragment!=null){
+            workoutFragment.onWorkoutFileSave(v);
+        }
+    }
+
+    public void onExerciseFileSave(View v){
+        if (exerciseFragment!=null){
+            exerciseFragment.onExerciseFileSave(v);
+        }
     }
 }

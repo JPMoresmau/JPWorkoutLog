@@ -77,4 +77,18 @@ public class StatsHelper {
         return ret;
     }
 
+    public List<Exercise> listExercises(){
+        return dataHelper.listExercises();
+    }
+
+    public ExerciseStats getExerciseStat(Exercise e){
+        List<ExerciseStat<Long>> ess=dataHelper.getExerciseStats(e.getId());
+        ExerciseStats ret=new ExerciseStats();
+        for (ExerciseStat<Long> es:ess){
+            double d= SettingsActivity.getWeigthInUserUnits(ctx,es.getTotalWeight());
+            ExerciseStat<Double> esd=new ExerciseStat<>(es.getWorkoutDate(),es.getSetCount(),es.getRepCount(),d);
+            ret.addStat(esd);
+        }
+        return ret;
+    }
 }
