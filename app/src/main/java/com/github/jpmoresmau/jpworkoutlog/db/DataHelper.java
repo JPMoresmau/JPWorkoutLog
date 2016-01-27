@@ -31,6 +31,8 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Workout.db";
 
+    private Map<Long,Exercise> exerciseCache=new HashMap<>();
+
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -66,7 +68,9 @@ public class DataHelper extends SQLiteOpenHelper {
             List<Exercise> l = new ArrayList<>();
 
             while (c.moveToNext()) {
-                l.add(new Exercise(c.getLong(0), c.getString(1)));
+                Exercise ex=new Exercise(c.getLong(0), c.getString(1));
+                l.add(ex);
+                exerciseCache.put(ex.getId(),ex);
             }
             return l;
         } finally {
@@ -99,26 +103,31 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     public Exercise getExercise(long id){
-        SQLiteDatabase db=getReadableDatabase();
-        String[] proj=new String[]{DataContract.ExerciseEntry._ID,DataContract.ExerciseEntry.COLUMN_NAME};
-        String sortOrder=DataContract.ExerciseEntry.COLUMN_NAME;
+        Exercise ex=exerciseCache.get(id);
+        if (ex==null) {
+            SQLiteDatabase db = getReadableDatabase();
+            String[] proj = new String[]{DataContract.ExerciseEntry._ID, DataContract.ExerciseEntry.COLUMN_NAME};
+            String sortOrder = DataContract.ExerciseEntry.COLUMN_NAME;
 
-        Cursor c=db.query(DataContract.ExerciseEntry.TABLE_NAME,
-                proj,
-                DataContract.ExerciseEntry._ID + " = ?",
-                new String[]{String.valueOf(id)},
-                null,
-                null,
-                sortOrder
-        );
-        try {
-            if (c.moveToNext()) {
-                return new Exercise(c.getLong(0), c.getString(1));
+            Cursor c = db.query(DataContract.ExerciseEntry.TABLE_NAME,
+                    proj,
+                    DataContract.ExerciseEntry._ID + " = ?",
+                    new String[]{String.valueOf(id)},
+                    null,
+                    null,
+                    sortOrder
+            );
+            try {
+                if (c.moveToNext()) {
+                    ex=new Exercise(c.getLong(0), c.getString(1));
+                    exerciseCache.put(ex.getId(),ex);
+                }
+            } finally {
+                c.close();
             }
-        } finally {
-            c.close();
+
         }
-        return null;
+        return ex;
     }
 
     public Exercise addExercise(String name){
@@ -138,7 +147,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public List<Workout> listWorkouts(){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.WorkoutEntry._ID,DataContract.WorkoutEntry.COLUMN_DATE};
-        String sortOrder=DataContract.WorkoutEntry.COLUMN_DATE+" DESC";
+        String sortOrder=DataContract.WorkoutEntry.COLUMN_DATE+" ASC";
 
         Cursor c=db.query(DataContract.WorkoutEntry.TABLE_NAME,
                 proj,
@@ -349,4 +358,6 @@ public class DataHelper extends SQLiteOpenHelper {
         }
 
     }
+
+
 }

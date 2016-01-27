@@ -82,7 +82,7 @@ public class ExerciseStatFragment extends Fragment {
         return v;
     }
 
-    private void fillText(View v,int minid,int maxid,Range<?> r){
+    public static void fillText(View v,int minid,int maxid,Range<?> r){
         TextView tv=(TextView)v.findViewById(minid);
         tv.setText(r!=null?r.getMin().toString():"");
         tv=(TextView)v.findViewById(maxid);

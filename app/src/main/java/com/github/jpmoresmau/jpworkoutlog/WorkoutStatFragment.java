@@ -20,6 +20,8 @@ import com.github.jpmoresmau.jpworkoutlog.model.WorkoutStats;
 import java.io.File;
 import java.io.IOException;
 
+import static com.github.jpmoresmau.jpworkoutlog.ExerciseStatFragment.fillText;
+
 
 /**
  */
@@ -39,27 +41,20 @@ public class WorkoutStatFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_workout_stat, container, false);
 
         wss=statsHelper.getWorkoutStats();
-        fillText(v,R.id.exercises_min,R.id.exercises_max,wss.getExerciseRange());
+        fillText(v, R.id.exercises_min, R.id.exercises_max, wss.getExerciseRange());
         fillText(v,R.id.sets_min,R.id.sets_max,wss.getSetRange());
         fillText(v,R.id.reps_min,R.id.reps_max,wss.getRepRange());
-        fillText(v,R.id.weight_min,R.id.weight_max,wss.getWeightRange());
+        fillText(v, R.id.weight_min, R.id.weight_max, wss.getWeightRange());
 
         fileHelper=new FileHelper(getActivity());
 
         Button b=(Button)v.findViewById(R.id.workout_file_save);
-        b.setVisibility(fileHelper.isExternalStorageWritable()?View.VISIBLE:View.INVISIBLE);
+        b.setVisibility(fileHelper.isExternalStorageWritable() ? View.VISIBLE : View.INVISIBLE);
 
         return v;
     }
 
 
-    private void fillText(View v,int minid,int maxid,Range<?> r){
-        TextView tv=(TextView)v.findViewById(minid);
-        tv.setText(r.getMin().toString());
-        tv=(TextView)v.findViewById(maxid);
-        tv.setText(r.getMax().toString());
-
-    }
 
     public void onWorkoutFileSave(View v){
         try {

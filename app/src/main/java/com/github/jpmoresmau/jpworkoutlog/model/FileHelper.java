@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.github.jpmoresmau.jpworkoutlog.R;
+import com.github.jpmoresmau.jpworkoutlog.SettingsActivity;
+import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,7 +38,7 @@ public class FileHelper {
     public File getExportFile(String rootName) {
         String d= DateFormat.getDateInstance(DateFormat.SHORT).format(new Date());
         d=d.replace('/','-');
-        String fileName=rootName+"-"+d+".csv";
+        String fileName=ctx.getResources().getString(R.string.file_prefix)+rootName+"-"+d+".csv";
 
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), fileName);
@@ -86,6 +88,33 @@ public class FileHelper {
             bw.close();
         }
         return f;
+    }
+
+    public File writeAllStats(DataHelper dataHelper) throws IOException{
+        File f=getExportFile(ctx.getResources().getString(R.string.all_workouts));
+        DateFormat df=DateFormat.getDateInstance(DateFormat.SHORT);
+        BufferedWriter bw=new BufferedWriter(new FileWriter(f));
+        try {
+            writeLine(bw, ctx.getResources().getString(R.string.date)
+                    , ctx.getResources().getString(R.string.exercise)
+                    , ctx.getResources().getString(R.string.set)
+                    , ctx.getResources().getString(R.string.reps)
+                    , ctx.getResources().getString(R.string.weight));
+            for (Workout w:dataHelper.listWorkouts()){
+                int ix=1;
+                for (ExSet es : dataHelper.listSets(w)) {
+                    writeLine(bw, df.format(w.getDate())
+                            , es.getExercise().getName()
+                            , String.valueOf(ix++)
+                            , String.valueOf(es.getReps())
+                            , String.valueOf(SettingsActivity.getWeigthInUserUnits(ctx,es.getWeight())));
+                }
+            }
+        } finally {
+            bw.close();
+        }
+        return f;
+
     }
 
     private void writeLine(BufferedWriter w,String... vs) throws IOException{

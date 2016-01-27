@@ -27,6 +27,10 @@ public class StatsHelper {
 
     }
 
+    public DataHelper getDataHelper() {
+        return dataHelper;
+    }
+
     public GlobalStats getGlobalStats() {
         if (globalStats==null){
             this.globalStats=dataHelper.getGlobalStats();

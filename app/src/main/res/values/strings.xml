@@ -82,10 +82,14 @@
     <string name="max">Maximum</string>
     <string name="exercises">Exercises</string>
     <string name="sets">Sets</string>
+    <string name="set">Set</string>
     <string name="date">Date</string>
+    <string name="all_workouts">All</string>
 
+    <string name="file_prefix">JPWorkoutLog-</string>
     <string name="file_save">Save to file</string>
     <string name="file_saved">Saved to file %1$s</string>
 
+    <string name="file_save_all">Save all to file</string>
 
 </resources>
