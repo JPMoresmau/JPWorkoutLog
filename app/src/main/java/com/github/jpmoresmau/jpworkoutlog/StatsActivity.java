@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.github.jpmoresmau.jpworkoutlog.model.FileHelper;
 import com.github.jpmoresmau.jpworkoutlog.model.StatsHelper;
@@ -38,10 +40,22 @@ public class StatsActivity extends FragmentActivity {
             TextView avg=(TextView)findViewById(R.id.stats_global_avg);
             avg.setText(statsHelper.getWorkoutAverage());
 
-            Button ws=(Button)findViewById((R.id.stats_workout));
+            ToggleButton ws=(ToggleButton)findViewById((R.id.stats_workout));
             ws.setVisibility(View.VISIBLE);
-            Button es=(Button)findViewById((R.id.stats_exercise));
+            ws.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    onWorkoutStats(buttonView);
+                }
+            });
+            ToggleButton es=(ToggleButton)findViewById((R.id.stats_exercise));
             es.setVisibility(View.VISIBLE);
+            es.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    onExerciseStats(buttonView);
+                }
+            });
             Button as=(Button)findViewById((R.id.all_file_save));
             as.setVisibility(View.VISIBLE);
 
