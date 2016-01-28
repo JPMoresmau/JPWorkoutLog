@@ -4,9 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
 import com.github.jpmoresmau.jpworkoutlog.model.ExSet;
 import com.github.jpmoresmau.jpworkoutlog.model.Exercise;
@@ -24,13 +22,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by jpmoresmau on 1/18/16.
+ * Helper for database operations
+ * @author jpmoresmau
  */
 public class DataHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Workout.db";
 
+    /**
+     * cache: exercise by ID useful when exporting to CSV
+     */
     private Map<Long,Exercise> exerciseCache=new HashMap<>();
 
     public DataHelper(Context context) {
@@ -45,13 +47,17 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO
+        // NOOP, one version only
     }
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // NOOP
     }
 
+    /**
+     * List all exercises that have sets
+     * @return
+     */
     public List<Exercise> listExercises(){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.ExerciseEntry._ID,DataContract.ExerciseEntry.COLUMN_NAME};
@@ -79,6 +85,11 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * get exercise by name
+     * @param name
+     * @return
+     */
     public Exercise getExercise(String name){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.ExerciseEntry._ID,DataContract.ExerciseEntry.COLUMN_NAME};
@@ -102,6 +113,11 @@ public class DataHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * get exercise by id (possibly using the cache)
+     * @param id
+     * @return
+     */
     public Exercise getExercise(long id){
         Exercise ex=exerciseCache.get(id);
         if (ex==null) {
@@ -130,6 +146,11 @@ public class DataHelper extends SQLiteOpenHelper {
         return ex;
     }
 
+    /**
+     * add exercise with the given name
+     * @param name
+     * @return a new exercise or the existing one if the name was already in the exercise table
+     */
     public Exercise addExercise(String name){
         if (name==null || name.trim().length()==0){
             throw new IllegalArgumentException("name");
@@ -144,6 +165,10 @@ public class DataHelper extends SQLiteOpenHelper {
         return new Exercise(newID,name);
     }
 
+    /**
+     * list all workouts sorted by date (oldest first)
+     * @return
+     */
     public List<Workout> listWorkouts(){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.WorkoutEntry._ID,DataContract.WorkoutEntry.COLUMN_DATE};
@@ -169,6 +194,11 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * get workout for given date
+     * @param d
+     * @return
+     */
     public Workout getWorkout(Date d){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.WorkoutEntry._ID,DataContract.WorkoutEntry.COLUMN_DATE};
@@ -192,6 +222,11 @@ public class DataHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * add workout at given date
+     * @param date
+     * @return
+     */
     public Workout addWorkout(Date date){
         if (date==null){
             throw new IllegalArgumentException("date");
@@ -206,6 +241,11 @@ public class DataHelper extends SQLiteOpenHelper {
         return new Workout(newID,date);
     }
 
+    /**
+     * lists sets for workout
+     * @param w
+     * @return
+     */
     public List<ExSet> listSets(Workout w){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.SetEntry._ID,
@@ -234,6 +274,14 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * add a set in a given workout, for a given exercise
+     * @param w the workout
+     * @param e the exercise
+     * @param reps the number of repetitions
+     * @param weight the weight used in grams
+     * @return
+     */
     public ExSet addSet(Workout w,Exercise e,int reps, long weight){
         SQLiteDatabase db=getWritableDatabase();
         ContentValues vals=new ContentValues();
@@ -256,6 +304,10 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * get the latest info by exercise ID
+     * @return
+     */
     public Map<Long,SetInfo<Long>> getLatestInfoByExercise(){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{
@@ -280,6 +332,10 @@ public class DataHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * get global statistics
+     * @return
+     */
     public GlobalStats getGlobalStats(){
         SQLiteDatabase db=getReadableDatabase();
 
@@ -301,6 +357,10 @@ public class DataHelper extends SQLiteOpenHelper {
         return new GlobalStats(null,null,0);
     }
 
+    /**
+     * get workout statistics
+     * @return
+     */
     public List<WorkoutStat<Long>> getWorkoutStats(){
         SQLiteDatabase db=getReadableDatabase();
         String s="select w."+DataContract.WorkoutEntry.COLUMN_DATE+","+
@@ -330,6 +390,11 @@ public class DataHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * get exercise statistics for a given exercise ID
+     * @param exerciseID
+     * @return
+     */
     public List<ExerciseStat<Long>> getExerciseStats(long exerciseID){
         SQLiteDatabase db=getReadableDatabase();
         String s="select w."+DataContract.WorkoutEntry.COLUMN_DATE+","+

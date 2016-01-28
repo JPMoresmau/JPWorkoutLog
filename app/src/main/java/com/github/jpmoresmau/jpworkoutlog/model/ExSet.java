@@ -1,7 +1,8 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
 /**
- * Created by jpmoresmau on 1/19/16.
+ * Exercise set in a given workout
+ * @author jpmoresmau
  */
 public class ExSet {
     private long id;

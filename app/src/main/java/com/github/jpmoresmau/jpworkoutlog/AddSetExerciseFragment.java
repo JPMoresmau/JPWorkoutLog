@@ -7,27 +7,24 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.github.jpmoresmau.jpworkoutlog.model.RuntimeInfo;
 import com.github.jpmoresmau.jpworkoutlog.model.SetInfo;
 
 import java.util.Map;
 
 /**
- * Created by jpmoresmau on 1/23/16.
+ * UI to add a set to the workout
+ * @author jpmoresmau
  */
 public class AddSetExerciseFragment extends DialogFragment {
     public static final String EXERCISES="exercises";
@@ -62,8 +59,9 @@ public class AddSetExerciseFragment extends DialogFragment {
 
         weightText=(EditText)view.findViewById(R.id.set_weight);
 
-
+        // latest info by exercise
         final Map<String, SetInfo<Double>> exerciseLatest=(Map<String, SetInfo<Double>>)getArguments().getSerializable(LAST_EXERCISES);
+        // prepopulate if we know the last exercise
         String l=getArguments().getString(LAST_EXERCISE);
         if (l!=null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -78,7 +76,7 @@ public class AddSetExerciseFragment extends DialogFragment {
             }
         }
 
-
+        // go from exercise to reps, populating with latest info for exercise
         exText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -97,6 +95,7 @@ public class AddSetExerciseFragment extends DialogFragment {
             }
         });
 
+        // weight is the last text view, triggers the addition
         weightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -110,6 +109,7 @@ public class AddSetExerciseFragment extends DialogFragment {
         });
 
 
+        // wire buttons
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.set_done, new DialogInterface.OnClickListener() {
@@ -130,7 +130,7 @@ public class AddSetExerciseFragment extends DialogFragment {
 
 
         final AlertDialog d=builder.create();
-
+        // show keyboard
         exText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -140,11 +140,13 @@ public class AddSetExerciseFragment extends DialogFragment {
             }
         });
 
+
         d.setOnShowListener(new DialogInterface.OnShowListener() {
 
             @Override
             public void onShow(DialogInterface dialog) {
                 exText.requestFocus();
+                // clear info
                 Button b = d.getButton(AlertDialog.BUTTON_NEUTRAL);
                 b.setOnClickListener(new View.OnClickListener() {
 
@@ -165,6 +167,9 @@ public class AddSetExerciseFragment extends DialogFragment {
 
     }
 
+    /**
+     * add a set from the entered information if correct
+     */
     private void addSet(){
         String ex = exText.getText().toString();
         try {
@@ -195,6 +200,9 @@ public class AddSetExerciseFragment extends DialogFragment {
         }
     }
 
+    /**
+     * listener for set creation
+     */
     public interface NewSetListener {
         void newSet(String ex,int reps,double weight);
     }

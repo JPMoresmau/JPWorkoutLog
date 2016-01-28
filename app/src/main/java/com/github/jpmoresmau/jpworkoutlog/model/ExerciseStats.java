@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by jpmoresmau on 1/26/16.
+ * General statistics for a given exercise
+ * @author jpmoresmau
  */
 public class ExerciseStats {
     private List<ExerciseStat<Double>> stats=new LinkedList<>();

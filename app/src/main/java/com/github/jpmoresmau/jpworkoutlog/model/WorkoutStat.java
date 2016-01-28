@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Statistics for one workout (aggregate all set information)
- * Created by jpmoresmau on 1/24/16.
+ * @author jpmoresmau
  */
 public class WorkoutStat<T> {
     private Date workoutDate;

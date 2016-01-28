@@ -3,7 +3,9 @@ package com.github.jpmoresmau.jpworkoutlog.model;
 import java.io.Serializable;
 
 /**
- * Created by jpmoresmau on 1/23/16.
+ * Information about a Set
+ * @author jpmoresmau
+ * @param <T> the class of the weight (Long for grams, Double for user unit)
  */
 public class SetInfo<T> implements Serializable{
     private int reps;

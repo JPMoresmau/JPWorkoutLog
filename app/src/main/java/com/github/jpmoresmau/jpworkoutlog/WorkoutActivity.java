@@ -1,17 +1,11 @@
 package com.github.jpmoresmau.jpworkoutlog;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 

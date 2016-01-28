@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by jpmoresmau on 1/25/16.
+ * Test statistics
+ * @author jpmoresmau
  */
 public class StatsTest {
 

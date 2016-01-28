@@ -1,13 +1,11 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.github.jpmoresmau.jpworkoutlog.R;
 import com.github.jpmoresmau.jpworkoutlog.SettingsActivity;
 import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,29 +14,52 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by jpmoresmau on 1/19/16.
+ * Class encapsulating the current workout
+ * @author jpmoresmau
  */
 public class RuntimeInfo {
     private Context ctx;
     private DataHelper dataHelper;
+    /**
+     * current workout
+     */
     private Workout workout;
 
+    /**
+     * exercises done
+     */
     private Set<Exercise> exercises=new HashSet<Exercise>();
 
+    /**
+     * sets done
+     */
     private List<ExSet> sets;
 
+    /**
+     * total weight, in user units
+     */
     private double totalWeight=0;
 
+    /**
+     * exercise by name cache
+     */
     private Map<String,Exercise> exercisesByName=new HashMap<>();
 
+    /**
+     * latest info by exercise name
+     */
     private HashMap<String,SetInfo<Double>> exercisesLatest=new HashMap<>();
 
+    /**
+     * last exercise name
+     */
     private String lastExercise="";
 
     public RuntimeInfo(Context ctx, Date d) {
         this.ctx=ctx;
         this.dataHelper = new DataHelper(ctx);
         this.workout = this.dataHelper.addWorkout(d);
+        // workout may have been started already today
         sets=this.dataHelper.listSets(workout);
         for (ExSet s:sets){
             exercises.add(s.getExercise());
@@ -46,17 +67,14 @@ public class RuntimeInfo {
             totalWeight+=uw*s.getReps();
         }
 
-        Map<Long,String> exById=new HashMap<>();
-        for (Exercise ex:dataHelper.listExercises()){
-            exById.put(ex.getId(),ex.getName());
-        }
+
 
         Map<Long,SetInfo<Long>> m=dataHelper.getLatestInfoByExercise();
         for (Long l:m.keySet()){
-           String n=exById.get(l);
-            if (n!=null){
+            Exercise ex=dataHelper.getExercise(l); // this uses a cache
+            if (ex!=null){
                 SetInfo<Long> si1=m.get(l);
-                exercisesLatest.put(n,new SetInfo<Double>(si1.getReps(),SettingsActivity.getWeigthInUserUnits(ctx, si1.getWeight())));
+                exercisesLatest.put(ex.getName(),new SetInfo<Double>(si1.getReps(),SettingsActivity.getWeigthInUserUnits(ctx, si1.getWeight())));
             }
         }
     }
@@ -73,12 +91,22 @@ public class RuntimeInfo {
         return totalWeight;
     }
 
+    /**
+     * get the summary as a localized string
+     * @return
+     */
     public String getSummary(){
         String s=ctx.getResources().getString(R.string.summary);
         String summary= String.format(s, exercises.size(),sets.size(),totalWeight, SettingsActivity.getUnitName(ctx));
         return summary;
     }
 
+    /**
+     * add a set to the current information and the database
+     * @param exName exercise name
+     * @param reps number of repetitions
+     * @param weight weight in user units
+     */
     public void addSet(String exName,int reps,double weight){
         checkExercisesNames();
         Exercise ex=exercisesByName.get(exName);
@@ -96,6 +124,9 @@ public class RuntimeInfo {
         }
     }
 
+    /**
+     * ensure exercise name cache is populated
+     */
     private void checkExercisesNames(){
         if (exercisesByName.isEmpty()) {
             for (Exercise e : dataHelper.listExercises()) {
@@ -107,6 +138,10 @@ public class RuntimeInfo {
         }
     }
 
+    /**
+     * list all possible exercise names
+     * @return
+     */
     public String[] listPossibleExerciseNames(){
         checkExercisesNames();
         return exercisesByName.keySet().toArray(new String[exercisesByName.size()]);

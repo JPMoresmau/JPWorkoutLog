@@ -3,7 +3,6 @@ package com.github.jpmoresmau.jpworkoutlog;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.jpmoresmau.jpworkoutlog.R;
 import com.github.jpmoresmau.jpworkoutlog.model.Exercise;
 import com.github.jpmoresmau.jpworkoutlog.model.ExerciseStats;
 import com.github.jpmoresmau.jpworkoutlog.model.FileHelper;
@@ -26,7 +24,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
+ * Fragment for activity statistics
+ * @author jpmoresmau
  */
 public class ExerciseStatFragment extends Fragment {
     private FileHelper fileHelper;
@@ -55,7 +54,7 @@ public class ExerciseStatFragment extends Fragment {
 
         final Button b=(Button)v.findViewById(R.id.exercise_file_save);
 
-
+        // show stats for selected exercise
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -82,6 +81,13 @@ public class ExerciseStatFragment extends Fragment {
         return v;
     }
 
+    /**
+     * helper method, set text view with range values
+     * @param v the view
+     * @param minid the id for the minimum text view
+     * @param maxid the id for the maximum text view
+     * @param r the range
+     */
     public static void fillText(View v,int minid,int maxid,Range<?> r){
         TextView tv=(TextView)v.findViewById(minid);
         tv.setText(r!=null?r.getMin().toString():"");
@@ -90,6 +96,11 @@ public class ExerciseStatFragment extends Fragment {
 
     }
 
+
+    /**
+     * save to file
+     * @param v
+     */
     public void onExerciseFileSave(View v){
         if (e!=null && ess!=null) {
             try {
@@ -98,7 +109,6 @@ public class ExerciseStatFragment extends Fragment {
                 Toast toast = Toast.makeText(getActivity(), notif, Toast.LENGTH_SHORT);
                 toast.show();
             } catch (IOException ioe) {
-                Log.e("onExerciseFileSave", ioe.getLocalizedMessage(), ioe);
                 Toast toast = Toast.makeText(getActivity(), ioe.getLocalizedMessage(), Toast.LENGTH_SHORT);
                 toast.show();
             }

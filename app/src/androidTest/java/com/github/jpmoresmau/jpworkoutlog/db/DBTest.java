@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by jpmoresmau on 1/18/16.
+ * Test DB operations
+ * @author jpmoresmau
  */
 public class DBTest extends AndroidTestCase {
     private DataHelper dataHelper;

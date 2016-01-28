@@ -7,7 +7,6 @@ import com.github.jpmoresmau.jpworkoutlog.R;
 import com.github.jpmoresmau.jpworkoutlog.SettingsActivity;
 import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +16,8 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * Created by jpmoresmau on 1/26/16.
+ * Helper for file operations
+ * @author jpmoresmau
  */
 public class FileHelper {
     private Context ctx;
@@ -35,10 +35,15 @@ public class FileHelper {
         return false;
     }
 
-    public File getExportFile(String rootName) {
+    /**
+     * get the file for export, given the file stub name
+     * @param stubName
+     * @return
+     */
+    public File getExportFile(String stubName) {
         String d= DateFormat.getDateInstance(DateFormat.SHORT).format(new Date());
         d=d.replace('/','-');
-        String fileName=ctx.getResources().getString(R.string.file_prefix)+rootName+"-"+d+".csv";
+        String fileName=ctx.getResources().getString(R.string.file_prefix)+stubName+"-"+d+".csv";
 
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), fileName);
@@ -46,6 +51,12 @@ public class FileHelper {
         return file;
     }
 
+    /**
+     * write workout statistics, the file stub name is workouts
+     * @param wss
+     * @return
+     * @throws IOException
+     */
     public File writeWorkoutStats(WorkoutStats wss) throws IOException{
         File f=getExportFile("workouts");
         DateFormat df=DateFormat.getDateInstance(DateFormat.SHORT);
@@ -69,6 +80,13 @@ public class FileHelper {
         return f;
     }
 
+    /**
+     * write exercise statistics, the file stub name is the exercise name
+     * @param e
+     * @param ess
+     * @return
+     * @throws IOException
+     */
     public File writeExerciseStats(Exercise e,ExerciseStats ess) throws IOException{
         File f=getExportFile(e.getName());
         DateFormat df=DateFormat.getDateInstance(DateFormat.SHORT);
@@ -90,6 +108,12 @@ public class FileHelper {
         return f;
     }
 
+    /**
+     * Write all statistics, the file stub name is All
+     * @param dataHelper
+     * @return
+     * @throws IOException
+     */
     public File writeAllStats(DataHelper dataHelper) throws IOException{
         File f=getExportFile(ctx.getResources().getString(R.string.all_workouts));
         DateFormat df=DateFormat.getDateInstance(DateFormat.SHORT);
@@ -117,6 +141,12 @@ public class FileHelper {
 
     }
 
+    /**
+     * Write a CSV line, using a comma as a separator
+     * @param w
+     * @param vs
+     * @throws IOException
+     */
     private void writeLine(BufferedWriter w,String... vs) throws IOException{
         String sep="";
         for (String v:vs){
@@ -127,6 +157,12 @@ public class FileHelper {
         w.newLine();
     }
 
+    /**
+     * write a CSV cell
+     * @param w
+     * @param v
+     * @throws IOException
+     */
     private void writeCell(Writer w,String v) throws IOException{
         if (v.contains(",")){
             v="\""+v+"\"";

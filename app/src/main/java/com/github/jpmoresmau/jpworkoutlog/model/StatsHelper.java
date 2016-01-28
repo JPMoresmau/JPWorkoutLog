@@ -7,13 +7,11 @@ import com.github.jpmoresmau.jpworkoutlog.SettingsActivity;
 import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Helper for statistics
- * Created by jpmoresmau on 1/24/16.
+ * @author jpmoresmau
  */
 public class StatsHelper {
     private Context ctx;
@@ -85,6 +83,11 @@ public class StatsHelper {
         return dataHelper.listExercises();
     }
 
+    /**
+     * get stats for a given exercise
+     * @param e
+     * @return
+     */
     public ExerciseStats getExerciseStat(Exercise e){
         List<ExerciseStat<Long>> ess=dataHelper.getExerciseStats(e.getId());
         ExerciseStats ret=new ExerciseStats();

@@ -2,7 +2,7 @@ package com.github.jpmoresmau.jpworkoutlog.model;
 
 /**
  * Range (min/max) of values
- * Created by jpmoresmau on 1/25/16.
+ * @author jpmoresmau
  */
 public class Range<T extends Comparable<T>> {
     private T min;

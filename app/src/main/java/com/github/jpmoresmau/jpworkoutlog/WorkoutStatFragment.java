@@ -1,19 +1,14 @@
 package com.github.jpmoresmau.jpworkoutlog;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.jpmoresmau.jpworkoutlog.model.FileHelper;
-import com.github.jpmoresmau.jpworkoutlog.model.Range;
 import com.github.jpmoresmau.jpworkoutlog.model.StatsHelper;
 import com.github.jpmoresmau.jpworkoutlog.model.WorkoutStats;
 
@@ -24,6 +19,8 @@ import static com.github.jpmoresmau.jpworkoutlog.ExerciseStatFragment.fillText;
 
 
 /**
+ * Fragment showing workout statistics
+ * @author jpmoresmau
  */
 public class WorkoutStatFragment extends Fragment {
     private WorkoutStats wss;
@@ -55,7 +52,10 @@ public class WorkoutStatFragment extends Fragment {
     }
 
 
-
+    /**
+     * save stats to file
+     * @param v
+     */
     public void onWorkoutFileSave(View v){
         try {
             File f = fileHelper.writeWorkoutStats(wss);
@@ -63,7 +63,6 @@ public class WorkoutStatFragment extends Fragment {
             Toast toast = Toast.makeText(getActivity(), notif, Toast.LENGTH_SHORT);
             toast.show();
         } catch (IOException ioe){
-            Log.e("onWorkoutFileSave",ioe.getLocalizedMessage(),ioe);
             Toast toast = Toast.makeText(getActivity(), ioe.getLocalizedMessage(), Toast.LENGTH_SHORT);
             toast.show();
         }

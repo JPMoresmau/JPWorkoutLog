@@ -3,7 +3,8 @@ package com.github.jpmoresmau.jpworkoutlog.db;
 import android.provider.BaseColumns;
 
 /**
- * Created by jpmoresmau on 1/18/16.
+ * SQL Definition for the various tables
+ * @author jpmoresmau
  */
 public final class DataContract {
 
@@ -11,6 +12,9 @@ public final class DataContract {
 
     }
 
+    /**
+     * Exercises
+     */
     public static abstract class ExerciseEntry implements BaseColumns {
         public static String TABLE_NAME="exercises";
         public static String COLUMN_NAME="name";
@@ -24,6 +28,9 @@ public final class DataContract {
     }
 
 
+    /**
+     * Workouts
+     */
     public static abstract class WorkoutEntry implements BaseColumns {
         public static String TABLE_NAME="workouts";
         public static String COLUMN_DATE="wdate";
@@ -36,6 +43,9 @@ public final class DataContract {
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
 
+    /**
+     * Sets
+     */
     public static abstract class SetEntry implements BaseColumns {
         public static String TABLE_NAME="sets";
         public static String COLUMN_WORKOUT="workout";
@@ -58,6 +68,9 @@ public final class DataContract {
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
 
+    /**
+     * Latest info for each exercise to prepopulate
+     */
     public static abstract class ExerciseLatestEntry implements BaseColumns {
         public static String TABLE_NAME="latest";
         public static String COLUMN_EXERCISE="exercise";

@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by jpmoresmau on 1/24/16.
+ * Global statistics
+ * @author jpmoresmau
  */
 public class GlobalStats {
     private Date firstWorkoutDate;

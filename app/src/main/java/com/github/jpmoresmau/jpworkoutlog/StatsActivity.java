@@ -1,11 +1,8 @@
 package com.github.jpmoresmau.jpworkoutlog;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +16,7 @@ import java.io.IOException;
 
 /**
  * Activity showing statistics
+ * @author jpmoresmau
  */
 public class StatsActivity extends FragmentActivity {
     private StatsHelper statsHelper;
@@ -64,6 +62,10 @@ public class StatsActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * workout stats button toggled
+     * @param v
+     */
     public void onWorkoutStats(View v){
         if (workoutFragment==null) {
             workoutFragment = new WorkoutStatFragment();
@@ -77,6 +79,10 @@ public class StatsActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * exercise stats button toggled
+     * @param v
+     */
     public void onExerciseStats(View v){
         if (exerciseFragment==null) {
             exerciseFragment = new ExerciseStatFragment();
@@ -90,18 +96,30 @@ public class StatsActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * save workout info to file
+     * @param v
+     */
     public void onWorkoutFileSave(View v){
         if (workoutFragment!=null){
             workoutFragment.onWorkoutFileSave(v);
         }
     }
 
+    /**
+     * save exercise info to file
+     * @param v
+     */
     public void onExerciseFileSave(View v){
         if (exerciseFragment!=null){
             exerciseFragment.onExerciseFileSave(v);
         }
     }
 
+    /**
+     * save all to file
+     * @param v
+     */
     public void onAllFileSave(View v){
         FileHelper fileHelper=new FileHelper(this);
         try {
@@ -110,7 +128,6 @@ public class StatsActivity extends FragmentActivity {
             Toast toast = Toast.makeText(this, notif, Toast.LENGTH_SHORT);
             toast.show();
         } catch (IOException ioe) {
-            Log.e("onExerciseFileSave", ioe.getLocalizedMessage(), ioe);
             Toast toast = Toast.makeText(this, ioe.getLocalizedMessage(), Toast.LENGTH_SHORT);
             toast.show();
         }

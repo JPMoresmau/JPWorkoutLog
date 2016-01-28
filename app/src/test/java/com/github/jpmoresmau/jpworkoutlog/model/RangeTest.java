@@ -7,7 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * Created by jpmoresmau on 1/25/16.
+ * test range behavior
+ * @author jpmoresmau
  */
 public class RangeTest {
 

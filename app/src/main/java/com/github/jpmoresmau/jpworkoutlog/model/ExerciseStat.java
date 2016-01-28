@@ -3,7 +3,9 @@ package com.github.jpmoresmau.jpworkoutlog.model;
 import java.util.Date;
 
 /**
- * Created by jpmoresmau on 1/24/16.
+ * Statistics for an exercise at a given workout
+ * @author jpmoresmau
+ * @param <T> the class of the unit (Long -> grams, Double -> user unit)
  */
 public class ExerciseStat<T> {
     private Date workoutDate;

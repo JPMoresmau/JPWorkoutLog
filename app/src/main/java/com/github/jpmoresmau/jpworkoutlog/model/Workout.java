@@ -3,7 +3,8 @@ package com.github.jpmoresmau.jpworkoutlog.model;
 import java.util.Date;
 
 /**
- * Created by jpmoresmau on 1/19/16.
+ * A workout
+ * @author jpmoresmau
  */
 public class Workout {
     private long id;

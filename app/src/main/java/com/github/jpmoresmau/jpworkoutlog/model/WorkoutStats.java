@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Keep all workout statistics with range for workout values
- * Created by jpmoresmau on 1/25/16.
+ * @author jpmoresmau
  */
 public class WorkoutStats {
     private List<WorkoutStat<Double>> stats=new LinkedList<>();

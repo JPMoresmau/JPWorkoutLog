@@ -1,9 +1,14 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
 /**
- * Created by jpmoresmau on 1/18/16.
+ * The definition of an exercise
+ * @author jpmoresmau
  */
 public class Exercise {
+    private long id;
+    private String name;
+
+
     public Exercise(long id, String name) {
         if (name==null || name.trim().length()==0){
             throw new IllegalArgumentException("name");
@@ -20,8 +25,6 @@ public class Exercise {
         return name;
     }
 
-    private long id;
-    private String name;
 
     @Override
     public boolean equals(Object o) {
