@@ -18,6 +18,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lastSetContainer"
+        android:layout_below="@+id/summaryText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

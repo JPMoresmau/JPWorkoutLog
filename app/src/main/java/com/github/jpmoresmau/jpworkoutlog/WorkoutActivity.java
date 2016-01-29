@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.jpmoresmau.jpworkoutlog.model.ExSet;
 import com.github.jpmoresmau.jpworkoutlog.model.RuntimeInfo;
 
 import java.util.Date;
@@ -18,6 +19,8 @@ public class WorkoutActivity extends FragmentActivity implements AddSetExerciseF
 
     private TextView summaryText;
     private RuntimeInfo runtimeInfo;
+
+    private LastSetFragment lastSetFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +32,21 @@ public class WorkoutActivity extends FragmentActivity implements AddSetExerciseF
         runtimeInfo=new RuntimeInfo(this,new Date(d));
 
         summaryText=(TextView)findViewById(R.id.summaryText);
+
+        lastSetFragment=new LastSetFragment();
+        lastSetFragment.setArguments(getIntent().getExtras());
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.lastSetContainer, lastSetFragment).commit();
+
         setSummary();
+
     }
 
     private void setSummary(){
        if (runtimeInfo!=null){
            summaryText.setText(runtimeInfo.getSummary());
+           lastSetFragment.setLastSet(runtimeInfo.getLastSet());
        }
 
     }
@@ -74,6 +86,16 @@ public class WorkoutActivity extends FragmentActivity implements AddSetExerciseF
         String notif= String.format(s, ex);
         Toast toast = Toast.makeText(this, notif, Toast.LENGTH_SHORT);
         toast.show();
+
+    }
+
+    /**
+     * remove last set
+     * @param v
+     */
+    public void removeLastSet(View v){
+        runtimeInfo.removeLastSet();
+        setSummary();
 
     }
 }

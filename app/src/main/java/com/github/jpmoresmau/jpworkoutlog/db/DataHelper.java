@@ -246,7 +246,7 @@ public class DataHelper extends SQLiteOpenHelper {
      * @param w
      * @return
      */
-    public List<ExSet> listSets(Workout w){
+    public LinkedList<ExSet> listSets(Workout w){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.SetEntry._ID,
                 DataContract.SetEntry.COLUMN_EXERCISE, DataContract.SetEntry.COLUMN_REPS,DataContract.SetEntry.COLUMN_WEIGHT};
@@ -262,7 +262,7 @@ public class DataHelper extends SQLiteOpenHelper {
                 sortOrder
         );
         try {
-            List<ExSet> l = new ArrayList<>();
+            LinkedList<ExSet> l = new LinkedList<>();
             while (c.moveToNext()) {
                 l.add(new ExSet(c.getLong(0), w, getExercise(c.getLong(1)), c.getInt(2), c.getLong(3)));
             }
@@ -302,6 +302,17 @@ public class DataHelper extends SQLiteOpenHelper {
 
         return new ExSet(newID,w,e,reps,weight);
 
+    }
+
+    /**
+     * delete the given set
+     * @param id
+     * @return
+     */
+    public boolean deleteSet(long id){
+        SQLiteDatabase db=getWritableDatabase();
+        int cnt=db.delete(DataContract.SetEntry.TABLE_NAME, DataContract.SetEntry._ID + "=" + id, null);
+        return cnt==1;
     }
 
     /**

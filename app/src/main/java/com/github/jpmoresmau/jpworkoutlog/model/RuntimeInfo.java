@@ -9,6 +9,7 @@ import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class RuntimeInfo {
     /**
      * sets done
      */
-    private List<ExSet> sets;
+    private LinkedList<ExSet> sets;
 
     /**
      * total weight, in user units
@@ -50,10 +51,6 @@ public class RuntimeInfo {
      */
     private HashMap<String,SetInfo<Double>> exercisesLatest=new HashMap<>();
 
-    /**
-     * last exercise name
-     */
-    private String lastExercise="";
 
     public RuntimeInfo(Context ctx, Date d) {
         this.ctx=ctx;
@@ -97,7 +94,7 @@ public class RuntimeInfo {
      */
     public String getSummary(){
         String s=ctx.getResources().getString(R.string.summary);
-        String summary= String.format(s, exercises.size(),sets.size(),totalWeight, SettingsActivity.getUnitName(ctx));
+        String summary= String.format(s, exercises.size(), sets.size(), totalWeight, SettingsActivity.getUnitName(ctx));
         return summary;
     }
 
@@ -107,7 +104,7 @@ public class RuntimeInfo {
      * @param reps number of repetitions
      * @param weight weight in user units
      */
-    public void addSet(String exName,int reps,double weight){
+    public ExSet addSet(String exName,int reps,double weight){
         checkExercisesNames();
         Exercise ex=exercisesByName.get(exName);
         if (ex==null){
@@ -118,10 +115,11 @@ public class RuntimeInfo {
         if (s.getId()>-1){
             sets.add(s);
             exercises.add(ex);
-            lastExercise=ex.getName();
             totalWeight+=weight*reps;
             exercisesLatest.put(ex.getName(),new SetInfo(reps,weight));
+            return s;
         }
+        return null;
     }
 
     /**
@@ -153,6 +151,38 @@ public class RuntimeInfo {
     }
 
     public String getLastExercise() {
-        return lastExercise;
+        ExSet lastSet=getLastSet();
+        return lastSet!=null?lastSet.getExercise().getName():null;
+    }
+
+    /**
+     * remove last set
+     * @return
+     */
+    public boolean removeLastSet(){
+        ExSet lastSet=getLastSet();
+        if (lastSet!=null && lastSet.getId()>-1){
+            boolean rem= dataHelper.deleteSet(lastSet.getId());
+            if (rem){
+                sets.removeLast();
+                exercises.clear();
+                totalWeight=0;
+                for (ExSet s:sets){
+                    exercises.add(s.getExercise());
+                    double uw=SettingsActivity.getWeigthInUserUnits(ctx,s.getWeight());
+                    totalWeight+=uw*s.getReps();
+                }
+            }
+            return rem;
+        }
+        return false;
+    }
+
+    /**
+     * get last set or null if not set
+     * @return
+     */
+    public ExSet getLastSet() {
+        return sets.isEmpty()?null:sets.getLast();
     }
 }

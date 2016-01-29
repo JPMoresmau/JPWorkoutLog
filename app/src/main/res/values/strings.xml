@@ -34,7 +34,12 @@
     <string name="add_set">Add Set:</string>
     <string name="exercise">Exercise</string>
 
+
+
     <string name="set_added">Set of %1$s added!</string>
+
+    <string name="last_set">Last Set: %1$s * %2$d (%3$.2f %4$s)</string>
+    <string name="remove_last_set">Remove</string>
 
     <string name="reps">Reps</string>
     <string name="weight">Weight</string>
@@ -91,5 +96,6 @@
     <string name="file_saved">Saved to file %1$s</string>
 
     <string name="file_save_all">Save all to file</string>
+    
 
 </resources>

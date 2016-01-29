@@ -190,6 +190,12 @@ public class DBTest extends AndroidTestCase {
         assertNotNull(exs2);
         assertTrue(exs2.isEmpty());
 
+        dataHelper.deleteSet(s2.getId());
+        exs1 = dataHelper.listSets(w1);
+        assertNotNull(exs1);
+        assertEquals(1, exs1.size());
+        assertEquals(s1, exs1.get(0));
+
     }
 
     @Test
