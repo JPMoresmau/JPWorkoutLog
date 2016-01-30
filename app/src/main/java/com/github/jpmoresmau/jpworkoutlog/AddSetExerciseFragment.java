@@ -69,6 +69,7 @@ public class AddSetExerciseFragment extends DialogFragment {
             } else {
                 exText.setText(l);
             }
+            exText.setSelection(0,l.length());
             SetInfo<Double> si=exerciseLatest.get(l);
             if (si!=null){
                 repsText.setText(String.valueOf(si.getReps()));
@@ -84,8 +85,12 @@ public class AddSetExerciseFragment extends DialogFragment {
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     SetInfo<Double> si = exerciseLatest.get(exText.getText().toString());
                     if (si != null) {
-                        repsText.setText(String.valueOf(si.getReps()));
-                        weightText.setText(String.valueOf(si.getWeight()));
+                        String sr=String.valueOf(si.getReps());
+                        repsText.setText(sr);
+                        repsText.setSelection(0, sr.length());
+                        String sw=String.valueOf(si.getWeight());
+                        weightText.setText(sw);
+                        weightText.setSelection(0,sw.length());
                     } else {
                         repsText.setText("");
                         weightText.setText("");
