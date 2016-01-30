@@ -127,11 +127,14 @@ public class RuntimeInfo {
      */
     private void checkExercisesNames(){
         if (exercisesByName.isEmpty()) {
-            for (Exercise e : dataHelper.listExercises()) {
-                exercisesByName.put(e.getName(), e);
-            }
+            // order of insertion matters!
+            // default names, without exercises in db
             for (String s : ctx.getResources().getStringArray(R.array.default_exercises)) {
                 exercisesByName.put(s, null);
+            }
+            // we have the exercise in the db
+            for (Exercise e : dataHelper.listExercises()) {
+                exercisesByName.put(e.getName(), e);
             }
         }
     }

@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.jpmoresmau.jpworkoutlog.model.SetInfo;
+import com.github.jpmoresmau.jpworkoutlog.model.Utils;
 
 import java.util.Map;
 
@@ -72,8 +73,12 @@ public class AddSetExerciseFragment extends DialogFragment {
             exText.setSelection(0,l.length());
             SetInfo<Double> si=exerciseLatest.get(l);
             if (si!=null){
-                repsText.setText(String.valueOf(si.getReps()));
-                weightText.setText(String.valueOf(si.getWeight()));
+                String sr=String.valueOf(si.getReps());
+                repsText.setText(sr);
+                repsText.setSelection(0, sr.length());
+                String sw= Utils.formatWeight(si.getWeight());
+                weightText.setText(sw);
+                weightText.setSelection(0, sw.length());
             }
         }
 
@@ -88,7 +93,7 @@ public class AddSetExerciseFragment extends DialogFragment {
                         String sr=String.valueOf(si.getReps());
                         repsText.setText(sr);
                         repsText.setSelection(0, sr.length());
-                        String sw=String.valueOf(si.getWeight());
+                        String sw=Utils.formatWeight(si.getWeight());
                         weightText.setText(sw);
                         weightText.setSelection(0,sw.length());
                     } else {
@@ -183,7 +188,7 @@ public class AddSetExerciseFragment extends DialogFragment {
                 repsText.setError(getActivity().getResources().getString(R.string.error_reps));
             } else {
                 try {
-                    double weight = Double.parseDouble(weightText.getText().toString());
+                    double weight = Utils.parseWeight(weightText.getText().toString());
                     if (listener != null) {
                         listener.newSet(ex, reps, weight);
                     }

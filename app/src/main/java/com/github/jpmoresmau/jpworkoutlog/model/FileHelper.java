@@ -72,7 +72,7 @@ public class FileHelper {
                         , String.valueOf(ws.getExerciseCount())
                         , String.valueOf(ws.getSetCount())
                         , String.valueOf(ws.getRepCount())
-                        , String.valueOf(ws.getTotalWeight()));
+                        , Utils.formatWeight(ws.getTotalWeight()));
             }
         } finally {
             bw.close();
@@ -100,7 +100,7 @@ public class FileHelper {
                 writeLine(bw, df.format(es.getWorkoutDate())
                         , String.valueOf(es.getSetCount())
                         , String.valueOf(es.getRepCount())
-                        , String.valueOf(es.getTotalWeight()));
+                        , Utils.formatWeight(es.getTotalWeight()));
             }
         } finally {
             bw.close();
