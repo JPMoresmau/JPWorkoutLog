@@ -10,7 +10,7 @@ import java.text.ParseException;
 public class Utils {
 
     /**
-     * format wiehgt according to default locale
+     * format weight according to default locale
      * @param d
      * @return
      */
