@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JPWorkoutLog</string>
+    <string name="app_name">JP\'s WorkoutLog</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Welcome to\nJP\'s workout log!</string>
     <string name="new_workout">New Workout!</string>
@@ -43,11 +43,12 @@
 
     <string name="reps">Reps</string>
     <string name="weight">Weight</string>
-    <string name="title_activity_workout">WorkoutActivity</string>
+    <string name="title_activity_workout">Workout</string>
 
     <string-array name="default_exercises">
         <item>Bench Press</item>
         <item>Deadlift</item>
+        <item>Romanian Deadlift</item>
         <item>Squat</item>
         <item>Front Squat</item>
         <item>Goblet Squat</item>
@@ -67,6 +68,9 @@
         <item>Dips</item>
         <item>Triceps Extension</item>
         <item>Skull Crusher</item>
+        <item>Muscle-up</item>
+        <item>Lunge</item>
+        <item>Burpee</item>
     </string-array>
 
     <string name="error_reps">Reps should be a round number; bigger than 0!</string>

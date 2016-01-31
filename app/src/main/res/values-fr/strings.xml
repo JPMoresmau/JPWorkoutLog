@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">Journal de Muscu de JP</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="welcome">Bienvenue au journal de muscu de JP!</string>
+    <string name="new_workout">Nouvel entraînement!</string>
+    <string name="stats">Stats</string>
+    <string name="title_activity_settings">Paramètres</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="pref_header_general">Général</string>
+
+    <string name="pref_unit">Unité de poids</string>
+    <string-array name="pref_unit_list_names">
+        <item>Kilogrammes</item>
+        <item>Livres</item>
+    </string-array>
+    <string-array name="pref_unit_list_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="cancel">Annuler</string>
+    <string name="set_done">Série complète!</string>
+    <string name="clear">Vider</string>
+
+    <string name="workout_date">Date de l\'entraînement?</string>
+    <string name="title_activity_date">Date de l\'entraînement</string>
+    <string name="workout_new_start">Démarrer l\'entraînement!</string>
+
+    <string name="summary">%1$d Exercice(s), %2$d Série(s), %3$.2f %4$s</string>
+    <string name="workout_done">Entraînement complet!</string>
+    <string name="new_set">Nouvelle Série</string>
+    <string name="add_set">Ajouter une série:</string>
+    <string name="exercise">Exercice</string>
+
+
+
+    <string name="set_added">Série de %1$s ajoutée!</string>
+
+    <string name="last_set">Dernière Série: %1$s * %2$d (%3$.2f %4$s)</string>
+    <string name="remove_last_set">Supprimer</string>
+
+    <string name="reps">Répétitions</string>
+    <string name="weight">Poids</string>
+    <string name="title_activity_workout">Entraînement</string>
+
+    <string-array name="default_exercises">
+        <item>Développé Couché</item>
+        <item>Soulevé de terre</item>
+        <item>Soulevé de terre roumain</item>
+        <item>Squat</item>
+        <item>Squat Barre Avant</item>
+        <item>Squat Goblet</item>
+        <item>Tirage</item>
+        <item>Tirage Visage</item>
+        <item>Traction</item>
+        <item>Traction Prise Large</item>
+        <item>Curl Biceps</item>
+        <item>Traction Biceps</item>
+        <item>Pompe</item>
+        <item>Crunch</item>
+        <item>Leg Curl</item>
+        <item>Leg Extension</item>
+        <item>Presse à cuisses</item>
+        <item>Mollet debout</item>
+        <item>Développé machine</item>
+        <item>Dips</item>
+        <item>Extension Triceps</item>
+        <item>Barre au front</item>
+        <item>Muscle-up</item>
+        <item>Fente</item>
+        <item>Burpee</item>
+    </string-array>
+
+    <string name="error_reps">Les répétitions doivent être un nombre entier supérieur à 0!</string>
+    <string name="error_weight">Le poids doit être un nombre!</string>
+
+    <string name="title_activity_stats">Stats</string>
+
+    <string name="global_stats_last">Dernier entraînemt: %1$s</string>
+    <string name="global_stats_none">Aucun entraînement! Au boulot!</string>
+    <string name="global_stats_avg">%1$d entraînement(s) depuis %2$s (%3$.1g entraînements/semaine)</string>
+
+    <string name="workout_stats">Stats entraînement</string>
+
+    <string name="exercise_stats">Stats exercice</string>
+
+    <string name="stat">Statistique</string>
+    <string name="min">Minimum</string>
+    <string name="max">Maximum</string>
+    <string name="exercises">Exercices</string>
+    <string name="sets">Séries</string>
+    <string name="set">Série</string>
+    <string name="date">Date</string>
+    <string name="all_workouts">Tous</string>
+
+    <string name="file_prefix">JPWorkoutLog-</string>
+    <string name="file_save">Sauvegarder</string>
+    <string name="file_saved">Sauvegardé dans le fichier %1$s</string>
+
+    <string name="file_save_all">Sauvegarder tout</string>
+
+
+</resources>
