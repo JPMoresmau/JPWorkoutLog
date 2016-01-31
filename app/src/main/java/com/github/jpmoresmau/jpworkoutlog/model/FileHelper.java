@@ -43,11 +43,12 @@ public class FileHelper {
     public File getExportFile(String stubName) {
         String d= DateFormat.getDateInstance(DateFormat.SHORT).format(new Date());
         d=d.replace('/','-');
-        String fileName=ctx.getResources().getString(R.string.file_prefix)+stubName+"-"+d+".csv";
-
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), fileName);
-        file.getParentFile().mkdirs();
+        String fileName=stubName+"-"+d+".csv";
+        File root=Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS);
+        File dir=new File(root,ctx.getResources().getString(R.string.file_prefix));
+        dir.mkdirs();
+        File file = new File(dir, fileName);
         return file;
     }
 

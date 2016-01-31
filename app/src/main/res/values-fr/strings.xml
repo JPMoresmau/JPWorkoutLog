@@ -95,7 +95,7 @@
     <string name="date">Date</string>
     <string name="all_workouts">Tous</string>
 
-    <string name="file_prefix">JPWorkoutLog-</string>
+    <string name="file_prefix">JournalMuscuJP</string>
     <string name="file_save">Sauvegarder</string>
     <string name="file_saved">Sauvegardé dans le fichier %1$s</string>
 

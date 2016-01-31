@@ -95,7 +95,7 @@
     <string name="date">Date</string>
     <string name="all_workouts">All</string>
 
-    <string name="file_prefix">JPWorkoutLog-</string>
+    <string name="file_prefix">JPWorkoutLog</string>
     <string name="file_save">Save to file</string>
     <string name="file_saved">Saved to file %1$s</string>
 
