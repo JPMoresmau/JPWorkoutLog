@@ -76,6 +76,22 @@
 
     </TableRow>
 
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView android:text="@string/max_weight"
+            android:padding="3dip"/>
+        <TextView android:id="@+id/max_weight_min"
+            android:padding="3dip"
+            android:gravity="right"/>
+        <TextView android:id="@+id/max_weight_max"
+            android:padding="3dip"
+            android:gravity="right"/>
+
+    </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">

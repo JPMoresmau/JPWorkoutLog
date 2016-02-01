@@ -263,14 +263,14 @@ public class DBTest extends AndroidTestCase {
         assertEquals(2, ws1.getExerciseCount());
         assertEquals(3, ws1.getSetCount());
         assertEquals(25, ws1.getRepCount());
-        assertEquals(14, ws1.getTotalWeight().longValue());
+        assertEquals(128, ws1.getTotalWeight().longValue());
 
         WorkoutStat<Long> ws2 = wss.get(1);
         assertEquals(d2, ws2.getWorkoutDate());
         assertEquals(1, ws2.getExerciseCount());
         assertEquals(1, ws2.getSetCount());
         assertEquals(4, ws2.getRepCount());
-        assertEquals(3, ws2.getTotalWeight().longValue());
+        assertEquals(12, ws2.getTotalWeight().longValue());
 
     }
 
@@ -294,13 +294,15 @@ public class DBTest extends AndroidTestCase {
         assertEquals(d1,es1.getWorkoutDate());
         assertEquals(2, es1.getSetCount());
         assertEquals(21, es1.getRepCount());
-        assertEquals(11, es1.getTotalWeight().longValue());
+        assertEquals(116, es1.getTotalWeight().longValue());
+        assertEquals(6, es1.getMaxWeight().longValue());
 
         ExerciseStat<Long> es2=ess.get(1);
         assertEquals(d2, es2.getWorkoutDate());
         assertEquals(1, es2.getSetCount());
         assertEquals(5,es2.getRepCount());
-        assertEquals(4,es2.getTotalWeight().longValue());
+        assertEquals(20,es2.getTotalWeight().longValue());
+        assertEquals(4, es2.getMaxWeight().longValue());
 
         ess=dataHelper.getExerciseStats(ex2.getId());
         assertNotNull(ess);
@@ -309,6 +311,7 @@ public class DBTest extends AndroidTestCase {
         assertEquals(d1,es1.getWorkoutDate());
         assertEquals(1, es1.getSetCount());
         assertEquals(4, es1.getRepCount());
-        assertEquals(3, es1.getTotalWeight().longValue());
+        assertEquals(12, es1.getTotalWeight().longValue());
+        assertEquals(3, es1.getMaxWeight().longValue());
     }
 }

@@ -2,7 +2,7 @@
     <string name="app_name">Journal de Muscu de JP</string>
     <string name="action_settings">Paramètres</string>
     <string name="welcome">Bienvenue au journal de muscu de JP!</string>
-    <string name="new_workout">Nouvel entraînement!</string>
+    <string name="new_workout">Nouvelle séance!</string>
     <string name="stats">Stats</string>
     <string name="title_activity_settings">Paramètres</string>
 
@@ -24,12 +24,12 @@
     <string name="set_done">Série complète!</string>
     <string name="clear">Vider</string>
 
-    <string name="workout_date">Date de l\'entraînement?</string>
-    <string name="title_activity_date">Date de l\'entraînement</string>
-    <string name="workout_new_start">Démarrer l\'entraînement!</string>
+    <string name="workout_date">Date de la séance?</string>
+    <string name="title_activity_date">Date de la séance</string>
+    <string name="workout_new_start">Démarrer la séance!</string>
 
     <string name="summary">%1$d Exercice(s), %2$d Série(s), %3$.2f %4$s</string>
-    <string name="workout_done">Entraînement complet!</string>
+    <string name="workout_done">Séance complète!</string>
     <string name="new_set">Nouvelle Série</string>
     <string name="add_set">Ajouter une série:</string>
     <string name="exercise">Exercice</string>
@@ -43,7 +43,8 @@
 
     <string name="reps">Répétitions</string>
     <string name="weight">Poids</string>
-    <string name="title_activity_workout">Entraînement</string>
+    <string name="max_weight">Poids max.</string>
+    <string name="title_activity_workout">Séance</string>
 
     <string-array name="default_exercises">
         <item>Développé Couché</item>
@@ -71,6 +72,7 @@
         <item>Muscle-up</item>
         <item>Fente</item>
         <item>Burpee</item>
+        <item>Presse épaules</item>
     </string-array>
 
     <string name="error_reps">Les répétitions doivent être un nombre entier supérieur à 0!</string>
@@ -78,11 +80,11 @@
 
     <string name="title_activity_stats">Stats</string>
 
-    <string name="global_stats_last">Dernier entraînemt: %1$s</string>
-    <string name="global_stats_none">Aucun entraînement! Au boulot!</string>
-    <string name="global_stats_avg">%1$d entraînement(s) depuis %2$s (%3$.1g entraînements/semaine)</string>
+    <string name="global_stats_last">Dernière séance: %1$s</string>
+    <string name="global_stats_none">Aucune séance! Au boulot!</string>
+    <string name="global_stats_avg">%1$d séance(s) depuis %2$s (%3$.1g séances/semaine)</string>
 
-    <string name="workout_stats">Stats entraînement</string>
+    <string name="workout_stats">Stats séance</string>
 
     <string name="exercise_stats">Stats exercice</string>
 

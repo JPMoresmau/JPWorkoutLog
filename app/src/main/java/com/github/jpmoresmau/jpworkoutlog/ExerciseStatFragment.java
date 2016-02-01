@@ -63,6 +63,7 @@ public class ExerciseStatFragment extends Fragment {
                 fillText(v, R.id.sets_min, R.id.sets_max, ess.getSetRange());
                 fillText(v,R.id.reps_min,R.id.reps_max,ess.getRepRange());
                 fillText(v,R.id.weight_min,R.id.weight_max,ess.getWeightRange());
+                fillText(v,R.id.max_weight_min,R.id.max_weight_max,ess.getMaxWeightRange());
                 b.setVisibility(fileHelper.isExternalStorageWritable() ? View.VISIBLE : View.INVISIBLE);
 
             }
@@ -74,6 +75,7 @@ public class ExerciseStatFragment extends Fragment {
                 fillText(v, R.id.sets_min, R.id.sets_max, null);
                 fillText(v,R.id.reps_min,R.id.reps_max,null);
                 fillText(v,R.id.weight_min,R.id.weight_max,null);
+                fillText(v,R.id.max_weight_min,R.id.max_weight_max,null);
                 b.setVisibility(View.INVISIBLE);
             }
         });

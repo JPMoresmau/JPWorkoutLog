@@ -1,7 +1,9 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.os.EnvironmentCompat;
 
 import com.github.jpmoresmau.jpworkoutlog.R;
 import com.github.jpmoresmau.jpworkoutlog.SettingsActivity;
@@ -44,8 +46,11 @@ public class FileHelper {
         String d= DateFormat.getDateInstance(DateFormat.SHORT).format(new Date());
         d=d.replace('/','-');
         String fileName=stubName+"-"+d+".csv";
-        File root=Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS);
+        File root=
+                Environment.getExternalStoragePublicDirectory(
+                        Build.VERSION.SDK_INT>=19?
+                            Environment.DIRECTORY_DOCUMENTS
+                            : Environment.DIRECTORY_DOWNLOADS);
         File dir=new File(root,ctx.getResources().getString(R.string.file_prefix));
         dir.mkdirs();
         File file = new File(dir, fileName);
@@ -96,12 +101,14 @@ public class FileHelper {
             writeLine(bw, ctx.getResources().getString(R.string.date)
                     , ctx.getResources().getString(R.string.sets)
                     , ctx.getResources().getString(R.string.reps)
-                    , ctx.getResources().getString(R.string.weight));
+                    , ctx.getResources().getString(R.string.weight)
+                    , ctx.getResources().getString(R.string.max_weight));
             for (ExerciseStat<Double> es : ess.getStats()) {
                 writeLine(bw, df.format(es.getWorkoutDate())
                         , String.valueOf(es.getSetCount())
                         , String.valueOf(es.getRepCount())
-                        , Utils.formatWeight(es.getTotalWeight()));
+                        , Utils.formatWeight(es.getTotalWeight())
+                        , Utils.formatWeight(es.getMaxWeight()));
             }
         } finally {
             bw.close();

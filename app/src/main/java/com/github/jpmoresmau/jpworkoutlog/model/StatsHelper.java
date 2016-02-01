@@ -93,7 +93,8 @@ public class StatsHelper {
         ExerciseStats ret=new ExerciseStats();
         for (ExerciseStat<Long> es:ess){
             double d= SettingsActivity.getWeigthInUserUnits(ctx,es.getTotalWeight());
-            ExerciseStat<Double> esd=new ExerciseStat<>(es.getWorkoutDate(),es.getSetCount(),es.getRepCount(),d);
+            double m= SettingsActivity.getWeigthInUserUnits(ctx,es.getMaxWeight());
+            ExerciseStat<Double> esd=new ExerciseStat<>(es.getWorkoutDate(),es.getSetCount(),es.getRepCount(),d,m);
             ret.addStat(esd);
         }
         return ret;

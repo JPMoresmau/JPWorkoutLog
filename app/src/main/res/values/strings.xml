@@ -43,6 +43,7 @@
 
     <string name="reps">Reps</string>
     <string name="weight">Weight</string>
+    <string name="max_weight">Top Weight</string>
     <string name="title_activity_workout">Workout</string>
 
     <string-array name="default_exercises">
@@ -71,6 +72,7 @@
         <item>Muscle-up</item>
         <item>Lunge</item>
         <item>Burpee</item>
+        <item>Shoulder Press</item>
     </string-array>
 
     <string name="error_reps">Reps should be a round number; bigger than 0!</string>

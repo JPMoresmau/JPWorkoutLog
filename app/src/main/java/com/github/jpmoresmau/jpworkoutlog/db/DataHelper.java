@@ -378,7 +378,7 @@ public class DataHelper extends SQLiteOpenHelper {
                 "count(DISTINCT s."+DataContract.SetEntry.COLUMN_EXERCISE+"),"+
                 "count(s."+DataContract.SetEntry._ID+"),"+
                 "sum(s. "+DataContract.SetEntry.COLUMN_REPS+"),"+
-                "sum(s."+DataContract.SetEntry.COLUMN_WEIGHT+")"+
+                "sum(s."+DataContract.SetEntry.COLUMN_WEIGHT+" * s. "+DataContract.SetEntry.COLUMN_REPS+")"+
                 " from "+DataContract.WorkoutEntry.TABLE_NAME+" w LEFT OUTER JOIN  "
                 + DataContract.SetEntry.TABLE_NAME + " s on w."+DataContract.WorkoutEntry._ID+" = s."+DataContract.SetEntry.COLUMN_WORKOUT
                 + " GROUP BY w."+DataContract.WorkoutEntry.COLUMN_DATE
@@ -411,7 +411,8 @@ public class DataHelper extends SQLiteOpenHelper {
         String s="select w."+DataContract.WorkoutEntry.COLUMN_DATE+","+
                 "count(s."+DataContract.SetEntry._ID+"),"+
                 "sum(s. "+DataContract.SetEntry.COLUMN_REPS+"),"+
-                "sum(s."+DataContract.SetEntry.COLUMN_WEIGHT+")"+
+                "sum(s."+DataContract.SetEntry.COLUMN_WEIGHT+" * s. "+DataContract.SetEntry.COLUMN_REPS+"),"+
+                "max(s."+DataContract.SetEntry.COLUMN_WEIGHT+")"+
                 " from "+DataContract.WorkoutEntry.TABLE_NAME+" w LEFT OUTER JOIN  "
                 + DataContract.SetEntry.TABLE_NAME + " s on w."+DataContract.WorkoutEntry._ID+" = s."+DataContract.SetEntry.COLUMN_WORKOUT
                 + " WHERE "+DataContract.SetEntry.COLUMN_EXERCISE+" = ?"
@@ -426,7 +427,8 @@ public class DataHelper extends SQLiteOpenHelper {
                 int setCount=c.getInt(1);
                 int repCount=c.getInt(2);
                 long weight=c.getLong(3);
-                ls.add(new ExerciseStat<Long>(d,setCount,repCount,weight));
+                long max=c.getLong(4);
+                ls.add(new ExerciseStat<Long>(d,setCount,repCount,weight,max));
             }
             return ls;
         } finally {

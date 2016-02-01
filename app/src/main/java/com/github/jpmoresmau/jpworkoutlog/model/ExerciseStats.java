@@ -13,12 +13,14 @@ public class ExerciseStats {
     private Range<Integer> setRange=new Range<>();
     private Range<Integer> repRange=new Range<>();
     private Range<Double> weightRange=new Range<>();
+    private Range<Double> maxWeightRange=new Range<>();
 
     public void addStat(ExerciseStat<Double> ws){
         stats.add(ws);
         setRange.addSample(ws.getSetCount());
         repRange.addSample(ws.getRepCount());
         weightRange.addSample(ws.getTotalWeight());
+        maxWeightRange.addSample(ws.getMaxWeight());
     }
 
     public List<ExerciseStat<Double>> getStats() {
@@ -36,5 +38,9 @@ public class ExerciseStats {
 
     public Range<Double> getWeightRange() {
         return weightRange;
+    }
+
+    public Range<Double> getMaxWeightRange() {
+        return maxWeightRange;
     }
 }
