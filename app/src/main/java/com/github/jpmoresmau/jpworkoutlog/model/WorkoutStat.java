@@ -1,12 +1,13 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Statistics for one workout (aggregate all set information)
  * @author jpmoresmau
  */
-public class WorkoutStat<T> {
+public class WorkoutStat<T> implements Serializable {
     private Date workoutDate;
     private int exerciseCount;
     private int setCount;

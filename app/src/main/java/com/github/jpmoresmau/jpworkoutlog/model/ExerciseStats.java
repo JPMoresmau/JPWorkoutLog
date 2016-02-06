@@ -1,5 +1,6 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * General statistics for a given exercise
  * @author jpmoresmau
  */
-public class ExerciseStats {
+public class ExerciseStats implements Serializable{
     private List<ExerciseStat<Double>> stats=new LinkedList<>();
 
     private Range<Integer> setRange=new Range<>();

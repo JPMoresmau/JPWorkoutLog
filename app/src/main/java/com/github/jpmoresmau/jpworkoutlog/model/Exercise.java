@@ -1,10 +1,12 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
+
 /**
  * The definition of an exercise
  * @author jpmoresmau
  */
-public class Exercise {
+public class Exercise implements Serializable {
     private long id;
     private String name;
 

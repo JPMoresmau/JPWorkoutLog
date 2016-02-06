@@ -7,6 +7,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+
+import com.github.jpmoresmau.jpworkoutlog.db.DataHelper;
+import com.github.jpmoresmau.jpworkoutlog.model.Workout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main activity: create new workout, view stats...
@@ -14,10 +21,17 @@ import android.view.View;
  */
 public class MainActivity extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DataHelper helper=new DataHelper(this);
+        List<Workout> workouts=helper.listWorkouts();
+
+        Button past=(Button)findViewById(R.id.past);
+        past.setVisibility(workouts.isEmpty()?View.INVISIBLE:View.VISIBLE);
     }
 
     @Override
@@ -55,6 +69,11 @@ public class MainActivity extends Activity {
      */
     public void openStats(View v){
         Intent intent=new Intent(this,StatsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openPast(View v){
+        Intent intent=new Intent(this,PastActivity.class);
         startActivity(intent);
     }
 }

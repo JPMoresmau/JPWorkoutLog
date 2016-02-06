@@ -1,10 +1,12 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
+
 /**
  * Range (min/max) of values
  * @author jpmoresmau
  */
-public class Range<T extends Comparable<T>> {
+public class Range<T extends Comparable<T>> implements Serializable {
     private T min;
     private T max;
 

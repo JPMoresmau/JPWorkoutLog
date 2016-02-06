@@ -1,5 +1,6 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @author jpmoresmau
  * @param <T> the class of the unit (Long -> grams, Double -> user unit)
  */
-public class ExerciseStat<T> {
+public class ExerciseStat<T> implements Serializable{
     private Date workoutDate;
     private int setCount;
     private int repCount;

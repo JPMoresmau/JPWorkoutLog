@@ -1,10 +1,12 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
+
 /**
  * Exercise set in a given workout
  * @author jpmoresmau
  */
-public class ExSet {
+public class ExSet implements Serializable{
     private long id;
     private Workout workout;
     private Exercise exercise;

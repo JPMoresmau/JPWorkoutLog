@@ -1,5 +1,6 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -7,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * Global statistics
  * @author jpmoresmau
  */
-public class GlobalStats {
+public class GlobalStats implements Serializable{
     private Date firstWorkoutDate;
     private Date lastWorkoutDate;
     private int workoutCount;

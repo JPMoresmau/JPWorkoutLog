@@ -169,7 +169,7 @@ public class DataHelper extends SQLiteOpenHelper {
      * list all workouts sorted by date (oldest first)
      * @return
      */
-    public List<Workout> listWorkouts(){
+    public ArrayList<Workout> listWorkouts(){
         SQLiteDatabase db=getReadableDatabase();
         String[] proj=new String[]{DataContract.WorkoutEntry._ID,DataContract.WorkoutEntry.COLUMN_DATE};
         String sortOrder=DataContract.WorkoutEntry.COLUMN_DATE+" ASC";
@@ -182,7 +182,7 @@ public class DataHelper extends SQLiteOpenHelper {
                 sortOrder
         );
         try {
-            List<Workout> l = new ArrayList<>();
+            ArrayList<Workout> l = new ArrayList<>();
 
             while (c.moveToNext()) {
                 l.add(new Workout(c.getLong(0), new Date(c.getLong(1))));

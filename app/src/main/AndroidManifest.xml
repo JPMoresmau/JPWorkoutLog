@@ -4,6 +4,7 @@
     package="com.github.jpmoresmau.jpworkoutlog"
     android:versionCode="1"
     android:versionName="1.0">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -11,8 +12,7 @@
         android:icon="@mipmap/workout"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -41,6 +41,14 @@
         <activity
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.jpmoresmau.jpworkoutlog.MainActivity" />
+        </activity>
+        <activity
+            android:name=".PastActivity"
+            android:label="@string/title_activity_past"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

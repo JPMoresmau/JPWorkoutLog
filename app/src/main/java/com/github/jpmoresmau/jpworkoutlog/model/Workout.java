@@ -1,12 +1,13 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * A workout
  * @author jpmoresmau
  */
-public class Workout {
+public class Workout implements Serializable {
     private long id;
     private Date date;
 

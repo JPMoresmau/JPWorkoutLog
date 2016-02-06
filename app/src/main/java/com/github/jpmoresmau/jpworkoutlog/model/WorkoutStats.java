@@ -1,5 +1,6 @@
 package com.github.jpmoresmau.jpworkoutlog.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Keep all workout statistics with range for workout values
  * @author jpmoresmau
  */
-public class WorkoutStats {
+public class WorkoutStats implements Serializable {
     private List<WorkoutStat<Double>> stats=new LinkedList<>();
 
     private Range<Integer> exerciseRange=new Range<>();
