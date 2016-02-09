@@ -103,5 +103,11 @@
 
     <string name="file_save_all">Sauvegarder tout</string>
 
-
+    <string name="past">Séances précédentes</string>
+    <string name="previous">Précédent</string>
+    <string name="next">Suivant</string>
+    <string name="past_date">Date: %1$s</string>
+    <string name="title_activity_past">Séances précédentes</string>
+    <string name="past_set">%1$s * %2$d (%3$.2f %4$s)</string>
+    <string name="no_past_set">Aucune série!</string>
 </resources>
